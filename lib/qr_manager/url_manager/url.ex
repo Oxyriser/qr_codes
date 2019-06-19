@@ -2,6 +2,8 @@ defmodule QrManager.URLManager.URL do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+
   schema "urls" do
     field :url, :string
     field :url_shortened, :string
