@@ -9,12 +9,14 @@
 
   <li>
     <strong>Url shortened:</strong>
-    <%= @url.url_shortened %>
+    <a href="">www.monsite.fr/<%= @url.id %></a>
   </li>
 
   <li>
     <strong>User ID:</strong>
-    <%= @url.user_id %>
+    <% user = QrManager.UserManager.User |> QrManager.Repo.get(@url.user_id) %>
+    <%= user.login %>
+
   </li>
 
 </ul>

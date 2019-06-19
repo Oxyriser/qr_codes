@@ -9,14 +9,6 @@
   <%= text_input f, :url %>
   <%= error_tag f, :url %>
 
-  <%= label f, :url_shortened %>
-  <%= text_input f, :url_shortened %>
-  <%= error_tag f, :url_shortened %>
-
-  <%= label f, :user_id %>
-  <%= text_input f, :user_id %>
-  <%= error_tag f, :user_id %>
-
   <div>
     <%= submit "Save" %>
   </div>

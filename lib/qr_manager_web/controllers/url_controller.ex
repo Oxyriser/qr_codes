@@ -1,12 +1,14 @@
 defmodule QrManagerWeb.URLController do
   use QrManagerWeb, :controller
 
+  require Ecto.Query
+
   alias QrManager.URLManager
   alias QrManager.URLManager.URL
 
-  def index(conn, _params) do
-    urls = URLManager.list_urls()
-    render(conn, "index.html", urls: urls)
+  def index(conn, %{"user_id" => user_id}) do
+    urls = URL |> Ecto.Query.where(user_id: ^user_id) |> QrManager.Repo.all()
+    render(conn, "index.html", urls: urls, user_id: user_id)
   end
 
   def new(conn, %{"user_id" => user_id}) do
@@ -14,8 +16,8 @@ defmodule QrManagerWeb.URLController do
     render(conn, "new.html", user_id: user_id, changeset: changeset)
   end
 
-  def create(conn, %{"url" => url_params}) do
-    case URLManager.create_url(url_params) do
+  def create(conn, %{"url" => url_params, "user_id" => user_id}) do
+    case URLManager.create_url(Map.put(url_params, "user_id", user_id)) do
       {:ok, url} ->
         conn
         |> put_flash(:info, "Url created successfully.")
