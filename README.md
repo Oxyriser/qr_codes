@@ -1,24 +1,22 @@
 # QR-codes reconfigurables
 
+
 ## QRM_API
+
+Depuis __qrmanager.rfc1149.net/api/v1__
+
 * /qrcode
-  * POST: Entrer une nouvelle url a raccourcir et obtenir son _id_
+  * POST: Entrer une nouvelle _url_ a raccourcir et obtenir son _id_
     * _url_, nécessaire.
+    * _style_, facultatif.
 
 
 * /qrcode/{id}
   * GET: Renvoie l'_url_ pointée par _id_.
-    * _style_, optionnel.
   * PUT: pour remplacer le qr code par un nouveau.
-    * *new_url*, necessaire.
-    * *new_style*, optionnel.
+    * _url_, facultatif. Si url n'est pas présent ou identique, le nouveau style est appliqué sans  que cela change les statistiques.
+    * _style_, facultatif.
   * DELETE: pour le supprimer.
-
-
-* /qrcode/{id}/style (pour eviter de fragmenter les stats qd on change les styles)
-  * GET: revoie le syle.
-  * PUT: réactualise le style.
-    * *new_style*, necessaire.
 
 
 * /qrcode/{id}/stats
@@ -29,9 +27,8 @@
   * GET: raccourci vers le nombre de _vues_.
 
 
-* /me ( pas frocément utile... à voir)
-  * GET:
-    * renvoie l'utilisateur couran, _user_, si il est bien connecté
+* /me
+  * GET: renvoie l'utilisateur courant, _user_, si il est bien connecté
   * DELETE: supprimer l'utilisateur
 
 
@@ -42,7 +39,7 @@
 * /me/stats
   * GET: renvoie les stats, *user_stats* liées à l'utilisateur
 
-### Notes: 
+### Notes sur la pagination: 
 Dans l'éventualité où l'on crérait des montagnes de QRcodes par personnes, la reponse de /me/list pourrait être vraiment trop large. Il faudrait dans ce cas la rajouter les paramètres _limit_, nombre limite dans la requete, et _offset_, décalage dans la requête, pour obetenir la liste en plusieures requêtes.
 
 ### Todo:
