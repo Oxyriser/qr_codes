@@ -28,3 +28,4 @@
 </table>
 
 <span><%= link "New Url", to: Routes.user_url_path(@conn, :new, @user_id) %></span>
+<span><%= link "Back", to: Routes.user_path(@conn, :show, @user_id) %></span>
