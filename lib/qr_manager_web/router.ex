@@ -1,5 +1,6 @@
 defmodule QrManagerWeb.Router do
   use QrManagerWeb, :router
+  alias QrManager.Plugs
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -7,15 +8,19 @@ defmodule QrManagerWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug QrManager.Plugs.SetUser
+    plug Plugs.SetUser
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :authentification do
+    plug Plugs.Authentification
+  end
+
   scope "/", QrManagerWeb do
-    pipe_through :browser
+    pipe_through [:browser, :authentification]
 
     get "/", PageController, :login
 
