@@ -15,7 +15,7 @@
   <li>
     <strong>User ID:</strong>
     <% user = QrManager.UserManager.User |> QrManager.Repo.get(@url.user_id) %>
-    <%= user.login %>
+    <%= "#{user.first_name} #{user.last_name}" %>
 
   </li>
 

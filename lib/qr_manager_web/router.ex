@@ -23,6 +23,13 @@ defmodule QrManagerWeb.Router do
     end
   end
 
+  scope "/auth", QrManagerWeb do
+    pipe_through :browser
+
+    get "/:provider", SessionController, :request
+    get "/:provider/callback", SessionController, :create
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", QrManagerWeb do
   #   pipe_through :api

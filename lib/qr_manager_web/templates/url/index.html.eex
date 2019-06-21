@@ -15,7 +15,7 @@
       <td>www.monsite.fr/<%= url.id %></td>
       <td>
           <% user = QrManager.UserManager.User |> QrManager.Repo.get(url.user_id) %>
-          <%= user.login %>
+      <%= "#{user.first_name} #{user.last_name}" %>
       </td>
         <td>
           <%= link "Show", to: Routes.user_url_path(@conn, :show, url.user_id, url.id) %>

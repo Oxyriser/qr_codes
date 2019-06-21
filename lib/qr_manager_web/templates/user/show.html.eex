@@ -4,7 +4,7 @@
 
   <li>
     <strong>Login:</strong>
-    <%= @user.login %>
+    <%= "#{@user.first_name} #{@user.last_name}" %> 
   </li>
 
 </ul>
