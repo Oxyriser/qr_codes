@@ -1,15 +1,13 @@
-<%= form_for @changeset, Routes.user_url_path(@conn, :index, 1), fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
-
-  <%= label f, :login %>
-  <%= text_input f, :login %>
-  <%= error_tag f, :login %>
-
-  <div>
-    <%= submit "Enter" %>
-  </div>
+<%= if @conn.assigns[:user] do %>
+  <span class="block mt-4 lg:inline-block lg:mt-0 text-grey-darkest mr-4 no-underline hover:underline">
+    Welcome, <%= @conn.assigns.user.first_name %>!
+  </span>
+  <%= link "Sign out", to: Routes.session_path(@conn, :delete), class: "block mt-4 lg:inline-block lg:mt-0 text-grey-darkest mr-4 no-underline hover:underline" %>
+<% else %>
+  <a href="/auth/google?scope=email%20profile" class="block mt-4 lg:inline-block lg:mt-0 text-grey-darkest mr-4 no-underline hover:underline">
+    Sign in with Google
+  </a>
 <% end %>
+
+</div>
+</div>
