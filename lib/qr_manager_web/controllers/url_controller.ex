@@ -61,4 +61,10 @@ defmodule QrManagerWeb.URLController do
     |> put_flash(:info, "Url deleted successfully.")
     |> redirect(to: Routes.user_url_path(conn, :index, url.user_id))
   end
+
+  def redirection(conn, %{"id" => id}) do
+    url = URLManager.get_url!(id).url
+    IO.puts(url)
+    redirect(conn, external: url)
+  end
 end

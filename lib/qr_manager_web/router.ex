@@ -23,6 +23,7 @@ defmodule QrManagerWeb.Router do
     pipe_through [:browser, :authentification]
 
     get "/", PageController, :login
+    get "/redirect/:id", URLController, :redirection
 
     resources "/users", UserController do
       resources "/urls", URLController
