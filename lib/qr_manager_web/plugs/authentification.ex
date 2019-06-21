@@ -9,8 +9,8 @@ defmodule QrManager.Plugs.Authentification do
 
   def call(conn, _params) do
     user_id = conn |> get_session(:user_id) |> to_string()
-    request_id = conn.params["id"]
-    IO.puts (user_id === request_id)
+    # FIXME (Maybe rename the key in user user_id)
+    request_id = conn.params["user_id"]
     if user_id == request_id do
       conn
     else

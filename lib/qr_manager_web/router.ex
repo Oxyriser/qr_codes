@@ -20,12 +20,13 @@ defmodule QrManagerWeb.Router do
   end
 
   scope "/", QrManagerWeb do
-    pipe_through [:browser, :authentification]
+    pipe_through :browser
 
     get "/", PageController, :login
     get "/redirect/:id", URLController, :redirection
 
-    resources "/users", UserController do
+    pipe_through :authentification
+    resources "/users", UserController do #, only: [:edit, :show, :update] do
       resources "/urls", URLController
     end
   end
