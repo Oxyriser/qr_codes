@@ -1,0 +1,157 @@
+<template>
+  <div id="myChart">
+    <router-link to="/front"> Nouveau </router-link>
+    <h3>Show which QR code information?</h3><br>
+    <input v-model="v1"/><br><br>
+    <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
+    <button id="ourSmallButton" @click="modeWeek">Per week</button> <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
+    <div id="main"></div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'Chart',
+  data: function () {
+    return {
+      msg: {},
+      v1: '',
+      mode: 0
+    }
+  },
+  methods: {
+    modeWeek () {
+      this.mode = 0
+      this.drawChart()
+    },
+    modeMonth () {
+      this.mode = 1
+      this.drawChart()
+    },
+    getData () {
+      // Lection du json
+      var url = 'test2.json'
+      var vm = this
+      this.$http.get(url).then(res => {
+        console.log(res.data)
+        vm.msg = res.data.DATA[1]
+      })
+      .catch(function (error) {
+            vm.answer = 'Error! Could not reach the API. ' + error
+            })
+
+    },
+    drawChart () {
+      console.log('?????' + this.v1)
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(document.getElementById('main'))
+      if (this.mode) {
+        let option = {
+          title: {
+            text: 'Statique'
+          },
+          tooltip: {},
+          legend: {
+            data: ['Nb de vue']
+          },
+          xAxis: {
+            data: ['JAV', 'FEV', 'MAR', 'AVR', 'MAI', 'JUN', 'JUI', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC']
+          },
+          yAxis: {},
+          series: [
+            {
+              name: 'Nb de vue',
+              type: 'bar',
+              data: [
+                Number(this.msg.QR[this.v1].nb_vue_month[0].JAN),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].FEV),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].MAR),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].AVR),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].MAI),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].JUN),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].JUI),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].AOU),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].SEP),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].OCT),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].NOV),
+                Number(this.msg.QR[this.v1].nb_vue_month[0].DEC)
+              ]
+            }
+          ]
+        }
+        myChart.setOption(option)
+      } else {
+        let option = {
+          title: {
+            text: 'Statique'
+          },
+          tooltip: {},
+          legend: {
+            data: ['Nb de vue']
+          },
+          xAxis: {
+            data: ['LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM']
+          },
+          yAxis: {},
+          series: [
+            {
+              name: 'Nb de vue',
+              type: 'bar',
+              data: [
+                Number(this.msg.QR[this.v1].nb_vue_week[0].LUN),
+                Number(this.msg.QR[this.v1].nb_vue_week[0].MAR),
+                Number(this.msg.QR[this.v1].nb_vue_week[0].MER),
+                Number(this.msg.QR[this.v1].nb_vue_week[0].JEU),
+                Number(this.msg.QR[this.v1].nb_vue_week[0].VEN),
+                Number(this.msg.QR[this.v1].nb_vue_week[0].SAM),
+                Number(this.msg.QR[this.v1].nb_vue_week[0].DIM)
+              ]
+            }
+          ]
+        }
+        myChart.setOption(option)
+      }
+    }
+  },
+  mounted () {
+    this.getData()
+  }
+}
+</script>
+
+<style>
+#myChart {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+#main {
+  width: 600px;
+  height:400px;
+  margin: auto;
+}
+#ourButton {
+  background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+#ourSmallButton {
+  background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+</style>

@@ -6,7 +6,7 @@
             <input v-model="message" v-bind:placeholder="placeholder" v-on:input="$emit('new', message)">
             
          </span>
-         <span>
+         <span hidden>
             <h2>Titre</h2>
             <input v-model="title" v-bind:placeholder="MonQR">
             <h2>Sous titre</h2>
