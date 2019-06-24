@@ -9,7 +9,7 @@
 
   <li>
     <strong>Url shortened:</strong>
-    <a href="">www.monsite.fr/<%= @url.id %></a>
+    <a href="">localhost:4000/redirect/<%= @url.id %></a>
   </li>
 
   <li>

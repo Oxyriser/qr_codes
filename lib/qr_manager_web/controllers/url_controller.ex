@@ -6,9 +6,13 @@ defmodule QrManagerWeb.URLController do
   alias QrManager.URLManager
   alias QrManager.URLManager.URL
 
+  defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
+    %{url: url, id: id}
+  end
+
   def index(conn, %{"user_id" => user_id}) do
     urls = URL |> Ecto.Query.where(user_id: ^user_id) |> QrManager.Repo.all()
-    render(conn, "index.html", urls: urls, user_id: user_id)
+    json(conn, %{"liste" => Enum.map(urls, &extract/1)})
   end
 
   def new(conn, %{"user_id" => user_id}) do
@@ -30,7 +34,7 @@ defmodule QrManagerWeb.URLController do
 
   def show(conn, %{"id" => id}) do
     url = URLManager.get_url!(id)
-    render(conn, "show.html", url: url)
+    json(conn, extract(url))
   end
 
   def edit(conn, %{"id" => id}) do
