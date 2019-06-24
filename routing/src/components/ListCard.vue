@@ -1,7 +1,7 @@
 <template>
 <div class="ListCard">
-<ul>
-    <li v-for="card_id in ids">
+<ul class="list pl0">
+    <li v-for="card_id in ids" class="list pl0">
         <CardUniqueQR class="" :short_url="card_id"></CardUniqueQR>
     </li>
 </ul>
@@ -15,7 +15,7 @@ export default {
         CardUniqueQR
     },
     props: {
-        ids: []
+        ids: Array
     }
 
 

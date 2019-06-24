@@ -1,24 +1,35 @@
 <template>
-<div class="TitleBar">
-    <h1>QR Manager</h1>
-    <span><img :src="img" alt="" width="80" heigh="80"></span>
+<div class="titlebar">
+     <TopBar class=""></TopBar>
+     <div class="center tc pa4 pt5">
+     <span><img :src="img" alt="" width="80" heigh="80"></span>
+     </div>
 </div>
+   
+
 </template>
 
 
 <script>
 import QRCode from 'qrcode'
+import TopBar from "./TopBar.vue"
 
 export default {
     name: "TitleBar",
-
+    components:
+    {
+        TopBar
+    },
     data: function() {
         return {
             img : "default"
         }
     },
     props: {
-        url: String,
+        url: {
+            type: String,
+            default: "https://www.youtube.com/watch?v=6n3pFFPSlW4"
+        }
     },
 
     watch: {

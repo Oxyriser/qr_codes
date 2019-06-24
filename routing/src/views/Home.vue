@@ -1,10 +1,7 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <h2>{{test}}</h2>
-    <router-link to="front"> Nouveau </router-link>
-    <router-link to='/me/stats'> Statistiques </router-link>
-
+    <TopBarHome class="">
+    </TopBarHome>
     <ListCard class="" :ids="shorts"></ListCard>    
   </div>
   
@@ -14,12 +11,13 @@
 // @ is an alias to /src
 import _ from 'lodash'
 import axios from 'axios'
-import TopBar from "../components/TopBar.vue"
+import TopBarHome from "../components/TopBarHome.vue"
 import ListCard from "../components/ListCard.vue"
 
 export default {
   components: {
-    ListCard
+    ListCard,
+    TopBarHome
   },
   data: function () {
     return {
@@ -32,20 +30,19 @@ export default {
       test: "nope"
     }
   },
-  beforeCreate: function() {
-    this.debounced_getQRs = _.debounce(this.get_QRs, 1000)
-    test = "noppyyy"
-    this.get_QRs()
-    
+  created: function() {
+    this.get_QR()
   },
   methods: {
-    get_QRs: function() {
+    get_QR: function() {
       var vm = this
       this.test = "yes?"
       axios.get('https://jsonplaceholder.typicode.com/posts')
-        .Then(function (response) {
-          vm.shorts = response.map(function(post) {return post.title})
+        .then(function (response) {
+          console.log(response)
+          vm.shorts = response.data.map(function(post) {return post.title})
           vm.test= "yeah!"
+          console.log(vm.shorts)
         })
         .catch(function (error) {
           vm.test ="honoooo"

@@ -1,14 +1,12 @@
 <template>
 
-  <div class="front">
-    <TitleBar class="" :url="input">
-      
-    </TitleBar>
-    <div class="center tc">
-      <GenerateForm class="" @generate="serveQR" @new="input=$event"> Generate </GenerateForm>
-      <CardUniqueQR v-if="generated" class="" :short_url="short_url" ></CardUniqueQR>
-    </div>
-    
+  <div class="edit">
+
+    <TopBar class="" :message="input"></TopBar>
+    <GenerateForm class="" @generate="serveQR" @new="input=$event"> Edit </GenerateForm>
+    <CardUniqueQR v-if="generated" class="" :short_url="short_url" ></CardUniqueQR>
+    <br>
+    <p>{{id}}</p>
   </div>
   
 </template>
@@ -18,14 +16,17 @@
 import _ from 'lodash'
 import axios from 'axios'
 import GenerateForm from "../components/GenerateForm.vue"
-import TitleBar from "../components/TitleBar.vue"
+import TopBar from "../components/TopBar.vue"
 import CardUniqueQR from "../components/CardUniqueQR.vue"
 
 export default {
   components: {
     GenerateForm,
-    TitleBar,
+    TopBar,
     CardUniqueQR
+  },
+  props: {
+
   },
   data: function () {
     return {
@@ -36,12 +37,15 @@ export default {
         'bar',
         'test'
       ],
-      generated: false
+      generated: false,
+      id: 0
 
     }
   },
+
   created: function() {
-        this.debouncedserveQR = _.debounce(this.serveQR, 500)
+    this.id = this.$route.params.id;
+    this.debouncedserveQR = _.debounce(this.serveQR, 500)
   },
   methods: {
    
