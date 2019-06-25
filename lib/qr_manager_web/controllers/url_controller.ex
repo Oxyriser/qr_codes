@@ -10,6 +10,7 @@ defmodule QrManagerWeb.URLController do
     user = conn.assigns[:user]
     urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
     json(conn, %{"liste" => Enum.map(urls, &extract/1)})
+  end
 
   defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
     %{url: url, id: id}
