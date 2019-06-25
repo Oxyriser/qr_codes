@@ -3,7 +3,6 @@ defmodule QrManagerWeb.Router do
   alias QrManager.Plugs
 
   pipeline :browser do
-    plug CORSPlug, origin: "http://localhost:8080"
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash

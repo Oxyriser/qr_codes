@@ -8,8 +8,6 @@ defmodule QrManagerWeb.URLController do
 
   def index(conn, _params) do
     user = conn.assigns[:user]
-    IO.inspect conn
-    IO.inspect user
     urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
     json(conn, %{"liste" => Enum.map(urls, &extract/1)})
   end
@@ -24,9 +22,9 @@ defmodule QrManagerWeb.URLController do
     render(conn, "new.html", user_id: user.id, changeset: changeset)
   end
 
-  def create(conn, %{"url" => url_params}) do
+  def create(conn, params) do
     user = conn.assigns[:user]
-    {:ok, url} = URLManager.create_url(Map.put(url_params, "user_id", user.id))
+    {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
       conn
       |> put_flash(:info, "Url created successfully.")
       |> redirect(to: Routes.url_path(conn, :show, url.id))
