@@ -1,6 +1,11 @@
 <template>
   <div id="myChart">
     <TopBar class="" :message="input"></TopBar><br><br>
+
+    <br><br>
+    <button @click="getJson">Json Test</button>
+    <br><br>
+
     <h3>Show which QR code information?</h3><br>
     <!--Drop down box-->
     <div class="selectBox" style="border-style: solid;border-width: 5px;border-color: black;background-color: black;color: white;width: 300px;margin: auto;">
@@ -24,6 +29,7 @@
 
 <script>
 import TopBar from "../components/TopBar.vue"
+import axios from 'axios'
 export default {
   name: 'Chart',
   components: {
@@ -37,6 +43,8 @@ export default {
       msg: {},
       v1: '',
       mode: 0,
+      posts: [],
+      errors: [],
       // Drop down box
       nbQR: '',
       unitModel: '',
@@ -70,7 +78,17 @@ export default {
       .catch(function (error) {
             vm.answer = 'Error! Could not reach the API. ' + error
             })
-
+    },
+    getJson () {
+      axios.get(`http://jsonplaceholder.typicode.com/users`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.users = response.data
+        console.log(this.users)
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
     },
     // Drop down box
     addData () {
