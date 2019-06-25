@@ -1,6 +1,6 @@
 <template>
 <div class="CardUniqueQR">
-<CardViewer class="" :title="title" :subtitle="subtitle" :url="url" :short_url="short_url"></CardViewer>
+<CardViewer class="" :title="title" :subtitle="subtitle" :url="url" :short_url="server_url"></CardViewer>
 </div>
 </template>
 
@@ -19,22 +19,27 @@ export default {
             title: "titre",
             subtitle: "soustitre",
             url: "https://url.com",
-            answer: "a"
+            answer: "a",
+            apiHandle: "http://qrmanager.rfc1149.net:4000/url/"
         }
     },
     props: {
         short_url: String
     },
+    computed: {
+        server_url: function() {
+            return this.apiHandle + this.short_url
+        }
+    },
     created: _.debounce(function() {
         var vm = this
-        axios.get('https://yesno.wtf/api')
+        axios.get(this.apiHandle + this.short_url,  {withCredentials: true})
             .then(function (response) {
-                vm.answer = _.capitalize(response.data.answer)
-
+                vm.url = _.capitalize(response.data.url)
                 })
             .catch(function (error) {
                 vm.answer = 'Error! Could not reach the API. ' + error
-
+                
                 })
         }, 500, {leading:false})
 

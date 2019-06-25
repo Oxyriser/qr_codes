@@ -5,8 +5,8 @@
   <img src="../assets/qr.png" alt="logo" height="80">
   </a>
   <div class="flex-grow pa3 flex items-center">
-    <HomeButton v-if="connected" class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></HomeButton>  
-    <ConnectionButton v-else class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></ConnectionButton>
+    <HomeButton  class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></HomeButton>  
+    <ConnectionButton class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></ConnectionButton>
   </div>
 </nav> 
 </div>
@@ -26,7 +26,7 @@ export default {
     props: {
         connected: {
             type: Boolean,
-            default: true
+            default: false
         },
         message: String
     }
