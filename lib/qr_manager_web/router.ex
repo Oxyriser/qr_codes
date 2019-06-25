@@ -27,14 +27,13 @@ defmodule QrManagerWeb.Router do
 
   end
   
-  scope "/url", QrManagerWeb do #, only: [:delete, :show] do
-    pipe_through :api
+  scope "/url", QrManagerWeb do
+    pipe_through :browser
 
-    get "/", UserController, :index
+    get "/", URLController, :index
     post "/", URLController, :create
-    delete "/", UserController, :delete
 
-    get "/stats", UserController, :stats
+    get "/stats", URLController, :stats
 
     get "/:id/stats", URLController, :stats
     get "/:id/", URLController, :show

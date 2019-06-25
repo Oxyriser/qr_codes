@@ -9,11 +9,6 @@ defmodule QrManagerWeb.UserController do
     render(conn, "show.html", user: user)
   end
 
-  def new(conn, _params) do
-    changeset = UserManager.change_user(%User{})
-    render(conn, "new.html", changeset: changeset)
-  end
-
   def create(conn, %{"user" => user_params}) do
     case UserManager.create_user(user_params) do
       {:ok, user} ->
