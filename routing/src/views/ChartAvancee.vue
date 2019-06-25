@@ -1,9 +1,9 @@
 <template>
   <div id="myChart">
-    <router-link to="/front"> Nouveau </router-link>
+    <TopBar class="" :message="input"></TopBar><br><br>
     <h3>Show which QR code information?</h3><br>
     <!--Drop down box-->
-    <div class="selectBox" style="border-style: solid;border-width: 5px;border-color: rgb(76, 175, 80);background-color: rgb(76, 175, 80);color: white;width: 300px;margin: auto;">
+    <div class="selectBox" style="border-style: solid;border-width: 5px;border-color: black;background-color: black;color: white;width: 300px;margin: auto;">
       <div class="selectBox_show" v-on:click.stop="arrowDown">
         <p>{{unitName}}</p>
         <input type="hidden" name="unit" v-model="unitModel">
@@ -16,15 +16,22 @@
     </div><br><br>
     <!--Close drop down box-->
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
-    <button id="ourSmallButton" @click="modeWeek">Per week</button> <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
+    <button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
+    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
     <div id="main"></div>
   </div>
 </template>
 
 <script>
-
+import TopBar from "../components/TopBar.vue"
 export default {
   name: 'Chart',
+  components: {
+    TopBar
+  },
+  props: {
+
+  },
   data: function () {
     return {
       msg: {},
@@ -171,7 +178,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 #main {
   width: 600px;
@@ -179,7 +185,7 @@ export default {
   margin: auto;
 }
 #ourButton {
-  background-color: #4CAF50; /* Green */
+  background-color: black;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -189,7 +195,7 @@ export default {
     font-size: 16px;
 }
 #ourSmallButton {
-  background-color: #4CAF50; /* Green */
+  background-color: black;
     border: none;
     color: white;
     padding: 12px 26px;
