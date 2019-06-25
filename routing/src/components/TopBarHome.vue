@@ -5,12 +5,12 @@
   <img src="../assets/qr.png" alt="logo" height="80">
   </a>
   <div class="flex-grow pa3 flex items-center">
-    <router-link class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40" 
+    <router-link class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"
       to="front"> Nouveau </router-link>
-    <router-link class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40" 
-      to='/me/stats'> Statistiques </router-link>
+    <router-link class="f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"
+      to='/url/stats'> Statistiques </router-link>
   </div>
-</nav> 
+</nav>
 </div>
 </template>
 

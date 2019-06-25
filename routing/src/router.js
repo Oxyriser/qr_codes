@@ -38,7 +38,7 @@ export default new Router({
         import(/* webpackChunkName: "front" */ "./views/Front.vue")
     },
     {
-      path: '/me/stats',
+      path: '/url/stats',
       component: () =>
       import(/* webpackChunkName: "front" */ "./views/ChartAvancee.vue")
     },
