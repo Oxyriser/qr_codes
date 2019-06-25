@@ -33,8 +33,18 @@ defmodule QrManagerWeb.URLController do
   end
 
   def show(conn, %{"id" => id}) do
-    url = URLManager.get_url!(id)
-    json(conn, extract(url))
+    user = conn.assigns[:user]
+    if user != nil do
+      user_id = user.id
+      url = URLManager.get_url!(id)
+      if (id ==  url.user_id) do
+        json(conn, extract(url))
+      else
+        raise "unauthorized access"
+      end 
+    else
+      raise "unauthorized access"
+    end
   end
 
   def edit(conn, %{"id" => id}) do
