@@ -37,7 +37,7 @@ defmodule QrManagerWeb.URLController do
     if user != nil do
       user_id = user.id
       url = URLManager.get_url!(id)
-      if (id ==  url.user_id) do
+      if (user_id ==  url.user_id) do
         json(conn, extract(url))
       else
         raise "unauthorized access"
