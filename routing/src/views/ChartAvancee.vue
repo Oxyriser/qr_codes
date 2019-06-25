@@ -2,7 +2,19 @@
   <div id="myChart">
     <router-link to="/front"> Nouveau </router-link>
     <h3>Show which QR code information?</h3><br>
-    <input v-model="v1"/><br><br>
+    <!--Drop down box-->
+    <div class="selectBox" style="border-style: solid;border-width: 5px;border-color: rgb(76, 175, 80);background-color: rgb(76, 175, 80);color: white;width: 300px;margin: auto;">
+      <div class="selectBox_show" v-on:click.stop="arrowDown">
+        <p>{{unitName}}</p>
+        <input type="hidden" name="unit" v-model="unitModel">
+      </div>
+      <div class="selectBox_list" v-show="isShowSelect">
+        <div class="selectBox_listLi" v-for="(item, index) in dataList"
+             @click.stop="select(item, index)">{{item.value}}
+        </div>
+      </div>
+    </div><br><br>
+    <!--Close drop down box-->
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
     <button id="ourSmallButton" @click="modeWeek">Per week</button> <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
     <div id="main"></div>
@@ -17,7 +29,14 @@ export default {
     return {
       msg: {},
       v1: '',
-      mode: 0
+      mode: 0,
+      // Drop down box
+      nbQR: '',
+      unitModel: '',
+      isShowSelect: false,
+      dataList: [],
+      unitName: 'Choose the number of your QR code'
+      // -------------------------------------
     }
   },
   methods: {
@@ -36,24 +55,48 @@ export default {
       this.$http.get(url).then(res => {
         console.log(res.data)
         vm.msg = res.data.DATA[1]
+        // Drop down box
+        this.nbQR = res.data.DATA[0].nbQRtt
+        this.addData()
+        // -----------------------------------
       })
       .catch(function (error) {
             vm.answer = 'Error! Could not reach the API. ' + error
             })
 
     },
+    // Drop down box
+    addData () {
+      var i = 0
+      for (i = 0; i < this.nbQR; i++) {
+        this.dataList.push({ key: i, value: 'Number ' + i })
+      }
+    },
+    arrowDown () {
+      this.isShowSelect = !this.isShowSelect
+    },
+    select (item, index) {
+      this.isShowSelect = false
+      console.log(item)
+      console.log(index)
+      this.v1 = index
+      this.unitModel = index
+      this.unitName = item.value
+    },
+    // -----------------------------------
     drawChart () {
       console.log('?????' + this.v1)
-      // 基于准备好的dom，初始化echarts实例
+      // Initialize the echarts instance based on the prepared dom
       let myChart = this.$echarts.init(document.getElementById('main'))
       if (this.mode) {
+        // Specify configuration items and data for the chart of month
         let option = {
           title: {
-            text: 'Statique'
+            text: 'Statistics'
           },
           tooltip: {},
           legend: {
-            data: ['Nb de vue']
+            data: ['Number of views']
           },
           xAxis: {
             data: ['JAV', 'FEV', 'MAR', 'AVR', 'MAI', 'JUN', 'JUI', 'AOU', 'SEP', 'OCT', 'NOV', 'DEC']
@@ -61,7 +104,7 @@ export default {
           yAxis: {},
           series: [
             {
-              name: 'Nb de vue',
+              name: 'Number of views',
               type: 'bar',
               data: [
                 Number(this.msg.QR[this.v1].nb_vue_month[0].JAN),
@@ -82,13 +125,14 @@ export default {
         }
         myChart.setOption(option)
       } else {
+        // Specify configuration items and data for the chart of week
         let option = {
           title: {
-            text: 'Statique'
+            text: 'Statistics'
           },
           tooltip: {},
           legend: {
-            data: ['Nb de vue']
+            data: ['Number of views']
           },
           xAxis: {
             data: ['LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM', 'DIM']
@@ -96,7 +140,7 @@ export default {
           yAxis: {},
           series: [
             {
-              name: 'Nb de vue',
+              name: 'Number of views',
               type: 'bar',
               data: [
                 Number(this.msg.QR[this.v1].nb_vue_week[0].LUN),
@@ -153,5 +197,10 @@ export default {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+#selectBox_list{
+    max-height: 240px;
+    width: 398px;
+    display: block;
 }
 </style>
