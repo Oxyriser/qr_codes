@@ -6,14 +6,16 @@ defmodule QrManagerWeb.URLController do
   alias QrManager.URLManager
   alias QrManager.URLManager.URL
 
-  def index(conn, %{"user_id" => user_id}) do
-    urls = URL |> Ecto.Query.where(user_id: ^user_id) |> QrManager.Repo.all()
-    render(conn, "index.html", urls: urls, user_id: user_id)
+  def index(conn, _params) do
+    user = conn.assigns[:user]
+    urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
+    render(conn, "index.html", urls: urls)
   end
 
-  def new(conn, %{"user_id" => user_id}) do
+  def new(conn, _params) do
+    user = conn.assigns[:user]
     changeset = URLManager.change_url(%URL{})
-    render(conn, "new.html", user_id: user_id, changeset: changeset)
+    render(conn, "new.html", user_id: user.user_id, changeset: changeset)
   end
 
   def create(conn, %{"url" => url_params, "user_id" => user_id}) do
@@ -21,7 +23,7 @@ defmodule QrManagerWeb.URLController do
       {:ok, url} ->
         conn
         |> put_flash(:info, "Url created successfully.")
-        |> redirect(to: Routes.user_url_path(conn, :show, url.user_id, url.id))
+        |> redirect(to: Routes.url_path(conn, :show, url.user_id, url.id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -46,7 +48,7 @@ defmodule QrManagerWeb.URLController do
       {:ok, url} ->
         conn
         |> put_flash(:info, "Url updated successfully.")
-        |> redirect(to: Routes.user_url_path(conn, :show, url.user_id, url.id))
+        |> redirect(to: Routes.url_path(conn, :show, url.user_id, url.id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", url: url, changeset: changeset)
@@ -59,7 +61,7 @@ defmodule QrManagerWeb.URLController do
 
     conn
     |> put_flash(:info, "Url deleted successfully.")
-    |> redirect(to: Routes.user_url_path(conn, :index, url.user_id))
+    |> redirect(to: Routes.url_path(conn, :index, url.user_id))
   end
 
   def redirection(conn, %{"id" => id}) do

@@ -18,14 +18,14 @@
       <%= "#{user.first_name} #{user.last_name}" %>
       </td>
         <td>
-          <%= link "Show", to: Routes.user_url_path(@conn, :show, url.user_id, url.id) %>
-          <%= link "Edit", to: Routes.user_url_path(@conn, :edit, url.user_id, url.id) %>
-          <%= link "Delete", to: Routes.user_url_path(@conn, :delete, url.user_id, url.id), method: :delete, data: [confirm: "Are you sure?"] %>
+          <%= link "Show", to: Routes.url_path(@conn, :show, url.id) %>
+          <%= link "Edit", to: Routes.url_path(@conn, :edit, url.id) %>
+          <%= link "Delete", to: Routes.url_path(@conn, :delete, url.id), method: :delete, data: [confirm: "Are you sure?"] %>
         </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Url", to: Routes.user_url_path(@conn, :new, @user_id) %></span>
-<span><%= link "Back", to: Routes.user_path(@conn, :show, @user_id) %></span>
+<span><%= link "New Url", to: Routes.url_path(@conn, :new) %></span>
+<span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>

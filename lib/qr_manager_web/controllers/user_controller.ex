@@ -5,8 +5,8 @@ defmodule QrManagerWeb.UserController do
   alias QrManager.UserManager.User
 
   def index(conn, _params) do
-    users = UserManager.list_users()
-    render(conn, "index.html", users: users)
+    user = conn.assigns[:user]
+    render(conn, "show.html", user: user)
   end
 
   def new(conn, _params) do
@@ -52,7 +52,7 @@ defmodule QrManagerWeb.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    user = UserManager.get_user!(id)
+    user = conn.assigns[:user]
     {:ok, _user} = UserManager.delete_user(user)
 
     conn
