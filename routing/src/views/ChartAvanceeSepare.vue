@@ -72,6 +72,7 @@ export default {
     },
     getJson () {
       axios.get(`http://jsonplaceholder.typicode.com/users/1`)
+      //axios.get(`http://qrmanager.rfc1149.net/api/v1/url/' + v1 + 'stats`)
       .then(response => {
         // JSON responses are automatically parsed.
         this.users = response.data
@@ -113,9 +114,9 @@ export default {
     },
     // -----------------------------------
     drawChart () {
-      //this.v1 = this.$route.params.nbQR
-      this.v1 = 1
-      console.log('Adress of QR = ' + this.$route.params.AdrQR)
+      this.v1 = this.$route.params.IDQR
+      //this.v1 = 1
+      console.log('Adress of QR = ' + this.$route.params.IDQR)
       // Initialize the echarts instance based on the prepared dom
       let myChart = this.$echarts.init(document.getElementById('main'))
       if (this.mode) {

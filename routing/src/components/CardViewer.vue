@@ -16,7 +16,7 @@
     </div>
     <div class="pr3 pt4">
     <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
-    <router-link :to="{ name: 'ChartSepare', params: { AdrQR: short_url }}"><button>  Statistiques </button></router-link>
+    <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button>  Statistiques </button></router-link>
     <router-link :to="{ name: 'edit', params: { id: short_url } }"><button> Edit </button></router-link>
 
     </div>
