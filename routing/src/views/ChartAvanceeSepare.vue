@@ -113,8 +113,9 @@ export default {
     },
     // -----------------------------------
     drawChart () {
-      this.v1 = this.$route.params.nbQR
-      console.log('?????' + this.v1)
+      //this.v1 = this.$route.params.nbQR
+      this.v1 = 1
+      console.log('Adress of QR = ' + this.$route.params.AdrQR)
       // Initialize the echarts instance based on the prepared dom
       let myChart = this.$echarts.init(document.getElementById('main'))
       if (this.mode) {

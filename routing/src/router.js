@@ -43,7 +43,7 @@ export default new Router({
       import(/* webpackChunkName: "front" */ "./views/ChartAvancee.vue")
     },
     {
-      path: '/me/statsS/:nbQR',
+      path: '/me/statsS/:AdrQR',
       name: "ChartSepare",
       component: () =>
       import(/* webpackChunkName: "front" */ "./views/ChartAvanceeSepare.vue")
