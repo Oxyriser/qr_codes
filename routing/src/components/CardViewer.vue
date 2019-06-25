@@ -15,11 +15,12 @@
         </div>
     </div>
     <div class="pr3 pt4">
-    <router-link to='/me/stats'><button>  Statistiques </button></router-link>
+    <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
+    <router-link :to="{ name: 'ChartSepare', params: { nbQR: '1' }}"><button>  Statistiques </button></router-link>
     <router-link :to="{ name: 'edit', params: { id: short_url } }"><button> Edit </button></router-link>
 
     </div>
-   
+
 </div>
 </template>
 
@@ -29,7 +30,7 @@ import ImageQR from "./ImageQR.vue"
 export default {
        components: {
         ImageQR,
-        
+
     },
     name: "CardViewer",
     props: {
