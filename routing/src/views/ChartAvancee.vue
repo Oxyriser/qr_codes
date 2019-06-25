@@ -3,7 +3,8 @@
     <TopBar class=""></TopBar><br><br>
 
     <br><br>
-    <button @click="getJson">Json Test</button>
+    <button @click="getJson">Json Test</button>&nbsp;
+    <button @click="getJsonByPost">Json Test2</button>
     <br><br>
 
     <h3>Show which QR code information?</h3><br>
@@ -44,6 +45,8 @@ export default {
       v1: '',
       mode: 0,
       posts: [],
+      postBody: 'This is a test!',
+      postInfo: [],
       errors: [],
       // Drop down box
       nbQR: '',
@@ -80,11 +83,23 @@ export default {
             })
     },
     getJson () {
-      axios.get(`http://jsonplaceholder.typicode.com/users`)
+      axios.get(`http://jsonplaceholder.typicode.com/users/1`)
       .then(response => {
         // JSON responses are automatically parsed.
         this.users = response.data
         console.log(this.users)
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    },
+    getJsonByPost () {
+      axios.post(`http://jsonplaceholder.typicode.com/posts`, {
+        body: this.postBody
+      })
+      .then(response => {
+        this.postInfo = response.data
+        console.log(this.postInfo)
       })
       .catch(e => {
         this.errors.push(e)
