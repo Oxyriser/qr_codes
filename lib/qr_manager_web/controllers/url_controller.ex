@@ -8,6 +8,8 @@ defmodule QrManagerWeb.URLController do
 
   def index(conn, _params) do
     user = conn.assigns[:user]
+    IO.inspect conn
+    IO.inspect user
     urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
     json(conn, %{"liste" => Enum.map(urls, &extract/1)})
   end
@@ -68,6 +70,9 @@ defmodule QrManagerWeb.URLController do
     |> put_flash(:info, "Url deleted successfully.")
     |> redirect(to: Routes.url_path(conn, :index, url.user_id))
   end
+
+  def stats(conn, %{"id" => id}), do: render(conn, "bonjour #{id}")
+  def stats(conn, _paramas), do: text(conn, "bonjour!")
 
   def redirection(conn, %{"id" => id}) do
     url = URLManager.get_url!(id).url

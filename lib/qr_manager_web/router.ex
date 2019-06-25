@@ -32,9 +32,8 @@ defmodule QrManagerWeb.Router do
 
     get "/", URLController, :index
     post "/", URLController, :create
-    delete "/", UserController, :delete
 
-    get "/stats", UserController, :stats
+    get "/stats", URLController, :stats
 
     get "/:id/stats", URLController, :stats
     get "/:id/", URLController, :show
