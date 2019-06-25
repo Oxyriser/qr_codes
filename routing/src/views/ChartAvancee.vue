@@ -1,6 +1,6 @@
 <template>
   <div id="myChart">
-    <TopBar class="" :message="input"></TopBar><br><br>
+    <TopBar class=""></TopBar><br><br>
 
     <br><br>
     <button @click="getJson">Json Test</button>
