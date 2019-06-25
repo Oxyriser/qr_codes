@@ -19,15 +19,16 @@ defmodule QrManagerWeb.URLController do
   def new(conn, _params) do
     user = conn.assigns[:user]
     changeset = URLManager.change_url(%URL{})
-    render(conn, "new.html", user_id: user.user_id, changeset: changeset)
+    render(conn, "new.html", user_id: user.id, changeset: changeset)
   end
 
-  def create(conn, %{"url" => url_params, "user_id" => user_id}) do
-    case URLManager.create_url(Map.put(url_params, "user_id", user_id)) do
+  def create(conn, %{"url" => url_params}) do
+    user = conn.assigns[:user]
+    case URLManager.create_url(Map.put(url_params, "user_id", user.id)) do
       {:ok, url} ->
         conn
         |> put_flash(:info, "Url created successfully.")
-        |> redirect(to: Routes.url_path(conn, :show, url.user_id, url.id))
+        |> redirect(to: Routes.url_path(conn, :show, url.id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
