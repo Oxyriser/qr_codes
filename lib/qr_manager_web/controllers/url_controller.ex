@@ -21,10 +21,26 @@ defmodule QrManagerWeb.URLController do
     |> Map.take([:url, :id, :name, :number_of_access, :representation, :inserted_at, :updated_at])
   end
 
+  defp validate_uri(str) do
+    uri = URI.parse(str)
+    case uri do
+      %URI{scheme: nil} -> {:error, uri}
+      %URI{host: nil} -> {:error, uri}
+          uri -> if(uri.scheme == "http" or uri.scheme == "https", do: {:ok, uri}, else: {:error, uri})
+    end
+  end
+
   def create(conn, params) do
     user = conn.assigns[:user]
-    {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
-    json(conn, extract(url))
+    str = params["url"]
+    IO.inspect(validate_uri(str))
+    case validate_uri(str) do
+      {:ok, uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
+      conn
+      |> put_flash(:info, "Url created successfully.")
+      |> redirect(to: Routes.url_path(conn, :show, url.id))
+      {:error, uri} -> conn |> send_resp(400, "bad request")
+    end
   end
 
   def show(conn, %{"id" => id}) do
