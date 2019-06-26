@@ -19,7 +19,7 @@ defmodule QrManagerWeb.URLController do
   end
 
   defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
-    %{url: url, id: "https://qrmanager.rfc1149.net/redirect/" <> id}
+    %{url: url, id: id}
   end
 
   def new(conn, _params) do
@@ -30,6 +30,7 @@ defmodule QrManagerWeb.URLController do
 
   def create(conn, params) do
     user = conn.assigns[:user]
+    IO.inspect(params)
     {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
       conn
       |> put_flash(:info, "Url created successfully.")
@@ -70,10 +71,7 @@ defmodule QrManagerWeb.URLController do
   def delete(conn, %{"id" => id}) do
     url = URLManager.get_url!(id)
     {:ok, _url} = URLManager.delete_url(url)
-
-    conn
-    |> put_flash(:info, "Url deleted successfully.")
-    |> redirect(to: Routes.url_path(conn, :index, url.user_id))
+    json(conn, %{done: "done"})
   end
 
   def stats(conn, %{"id" => id}), do: render(conn, "bonjour #{id}")
