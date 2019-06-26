@@ -16,8 +16,9 @@ defmodule QrManagerWeb.URLController do
     end
   end
 
-  defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
-    %{url: url, id: id}
+  defp extract(url) do
+    url 
+    |> Map.take([:url, :id, :name, :number_of_access, :representation, :inserted_at, :updated_at])
   end
 
   def create(conn, params) do
