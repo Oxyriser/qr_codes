@@ -8,7 +8,6 @@ defmodule QrManagerWeb.URLController do
 
   def index(conn, _params) do
     user = conn.assigns[:user]
-    IO.inspect(user)
     if user != nil do
       urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
       json(conn, %{"liste" => Enum.map(urls, &extract/1)})
@@ -22,6 +21,15 @@ defmodule QrManagerWeb.URLController do
     %{url: url, id: id}
   end
 
+  defp validate_uri(str) do
+    uri = URI.parse(str)
+    case uri do
+      %URI{scheme: nil} -> {:error, uri}
+      %URI{host: nil} -> {:error, uri}
+          uri -> if(uri.scheme == "http" or uri.scheme == "https", do: {:ok, uri}, else: {:error, uri})
+    end
+  end
+
   def new(conn, _params) do
     user = conn.assigns[:user]
     changeset = URLManager.change_url(%URL{})
@@ -30,11 +38,15 @@ defmodule QrManagerWeb.URLController do
 
   def create(conn, params) do
     user = conn.assigns[:user]
-    IO.inspect(params)
-    {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
+    str = params["url"]
+    IO.inspect(validate_uri(str))
+    case validate_uri(str) do
+      {:ok, uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
       conn
       |> put_flash(:info, "Url created successfully.")
       |> redirect(to: Routes.url_path(conn, :show, url.id))
+      {:error, uri} -> json(conn, %{error: "error"})
+    end
   end
 
   def show(conn, %{"id" => id}) do
