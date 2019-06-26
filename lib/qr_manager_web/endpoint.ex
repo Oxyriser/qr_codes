@@ -16,7 +16,7 @@ defmodule QrManagerWeb.Endpoint do
     at: "/",
     from: :qr_manager,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt dist)
+    only: ~w(css fonts images js favicon.ico robots.txt )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

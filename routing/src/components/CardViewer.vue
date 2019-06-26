@@ -56,12 +56,8 @@ export default {
         subtitle: String,
         subtitleSecond: String,
         url: String,
-<<<<<<< HEAD
         short_url: String,
         id: String
-=======
-        short_url: String
->>>>>>> 778211c520178b8799cb7a68707a264a14a9dae4
     }
 }
 </script>
