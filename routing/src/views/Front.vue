@@ -55,20 +55,21 @@ export default {
   },
   methods: {
    
-    serveQR: _.debounce( function (message) {
+    serveQR:function (message) {
       var vm = this
-      this.generated = true
       console.log(querystring.stringify(this.req));
       console.log
       axios.post(this.apiHandle, querystring.stringify(this.req), { withCredentials: true,  })
       .then(function (response) {
             console.log(response.data)
-            this.short_url = response.data.id
+            vm.short_url = response.data.id
+            vm.generated = true
+
             })
         .catch(function (error) {
             vm.answer = 'Error! Could not reach the API. ' + error
-            })
-    }, 500, {leading:false}),
+      })
+    }
   }
 };
 </script>
