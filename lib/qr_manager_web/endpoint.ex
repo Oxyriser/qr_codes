@@ -1,7 +1,8 @@
 defmodule QrManagerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :qr_manager
 
-  plug Corsica, origins: "*"
+  plug Corsica, max_age: 600, origins: "*", expose_headers: ~w(X-Foo)
+
 
   socket "/socket", QrManagerWeb.UserSocket,
     websocket: true,
@@ -35,6 +36,7 @@ defmodule QrManagerWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
+
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.

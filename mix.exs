@@ -19,9 +19,8 @@ defmodule QrManager.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      applications: [:corsica],
       mod: {QrManager.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:corsica, :logger, :runtime_tools]
     ]
   end
 
