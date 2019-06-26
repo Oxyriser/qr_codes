@@ -14,10 +14,6 @@ defmodule QrManagerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :authentification do
-    plug Plugs.Authentification
-  end
-
   scope "/", QrManagerWeb do
     pipe_through :browser
 
