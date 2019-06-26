@@ -7,8 +7,9 @@ defmodule QrManagerWeb.URLController do
   alias QrManager.URLManager.URL
 
 
-  defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
-    %{url: url, id: id}
+  defp extract(url) do
+    url 
+    |> Map.take([:url, :id, :name, :number_of_access, :representation, :inserted_at, :updated_at])
   end
 
   defp validate_uri(str) do
