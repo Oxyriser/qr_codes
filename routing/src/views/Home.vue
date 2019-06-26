@@ -2,7 +2,7 @@
   <div class="home">
     <TopBarHome class="">
     </TopBarHome>
-    <PleaseConnect :v-if="notconnected" @click="get_QR" class=""> </PleaseConnect>
+    <PleaseConnect v-if="notconnected" @click="get_QR" class=""> </PleaseConnect>
     <ListCard class="" :ids="shorts"></ListCard>    
   </div>
   
@@ -48,15 +48,14 @@ export default {
           vm.shorts = response.data.liste.map(function(qr) {return qr.id})
           vm.test= "yeah!"
           console.log(vm.shorts)
-          this.notconnected = false
 
         })
         .catch(function (error) {
           if(error.response) {
             console.log(error.response.status)
             if(error.response.status == 401) {
-               this.notconnected = true
-               console.log("not connected:")
+              console.log("not connected")
+              vm.notconnected = true
             }
           }
         })
