@@ -19,6 +19,7 @@ defmodule QrManagerWeb.Router do
 
     get "/", PageController, :login
     get "/redirect/:id", URLController, :redirection
+    delete "/", UserController, :delete
 
   end
   

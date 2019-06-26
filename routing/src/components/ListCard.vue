@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 <div class="ListCard">
     <card-unique-q-r
     @delete_qr="remove_this(id)"
@@ -7,6 +8,18 @@
     v-bind:short_url="id">
     </card-unique-q-r>
 </div>
+=======
+  <div class="center tc">
+    <div class="ListCard">
+        <card-unique-q-r
+        @reload="$emit('reload')"
+        v-for="id in ids"
+        v-bind:key="id"
+        v-bind:short_url="id">
+        </card-unique-q-r>
+    </div>
+  </div>
+>>>>>>> 778211c520178b8799cb7a68707a264a14a9dae4
 </template>
 
 <script>
