@@ -6,6 +6,7 @@ import echarts from "echarts"
 Vue.prototype.$echarts = echarts
 
 import axios from 'axios'
+axios.defaults.headers.common['Origin'] = "test.com";
 Vue.prototype.$http= axios
 
 Vue.config.productionTip = false;
