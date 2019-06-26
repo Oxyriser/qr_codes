@@ -40,7 +40,7 @@ export default {
                     var vm = this
             axios.get(this.apiHandle + this.short_url,  {withCredentials: true})
             .then(function (response) {
-                vm.url = _.capitalize(response.data.url)
+                vm.url = response.data.url
                 console.log(response.data.url)
                 })
             .catch(function (error) {
@@ -53,7 +53,7 @@ export default {
         var vm = this
         axios.get(this.apiHandle + this.short_url,  {withCredentials: true})
             .then(function (response) {
-                vm.url = _.capitalize(response.data.url)
+                vm.url = response.data.url
                 console.log(response.data.url)
                 })
             .catch(function (error) {
