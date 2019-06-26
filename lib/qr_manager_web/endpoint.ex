@@ -1,7 +1,7 @@
 defmodule QrManagerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :qr_manager
 
-  plug Corsica, origins:"*", expose_headers: ~w(X-Foo), :allow_credentials: true
+  plug Corsica, origins: "*", expose_headers: ~w(X-Foo), :allow_credentials: true
 
 
   socket "/socket", QrManagerWeb.UserSocket,
