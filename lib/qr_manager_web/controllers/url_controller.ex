@@ -32,7 +32,7 @@ defmodule QrManagerWeb.URLController do
     cond do
       user == nil -> conn |> send_resp(401, "You are not connected")
       user != url.user_id -> conn |> send_resp(403, "forbidden")
-      true -> json(conn, exctract(url))
+      true -> json(conn, extract(url))
     end
   end
 
@@ -43,7 +43,7 @@ defmodule QrManagerWeb.URLController do
       user == nil -> conn |> send_resp(401, "You are not connected")
       user != url.user_id -> conn |> send_resp(403, "forbidden")
       true -> {:ok, url} = URLManager.update_url(url, url_params)
-        json(conn, exctract(url))
+        json(conn, extract(url))
     end
   end
 
