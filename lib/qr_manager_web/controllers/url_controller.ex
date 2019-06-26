@@ -14,7 +14,7 @@ defmodule QrManagerWeb.URLController do
       json(conn, %{"liste" => Enum.map(urls, &extract/1)})
     else
       conn
-      |> send_resp(403, "forbidden")
+      |> send_resp(401, "You are not connected")
     end
   end
 
@@ -49,7 +49,7 @@ defmodule QrManagerWeb.URLController do
       end 
     else
       conn
-      |> send_resp(403, "forbidden")
+      |> send_resp(401, "You are not connected")
     end
   end
 
