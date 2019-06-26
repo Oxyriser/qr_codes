@@ -1,13 +1,18 @@
 <template>
-        <a href="https://qrmanager.rfc1149.net/" target="_blank" class="link">Connection</a>
+    <a href=""><button @click="connect_api"> connect aaaaa</button>    </a>
 </template>
 
 <script>
 
 import axios from "axios"
 export default {
-    name: "ConnectionButton"
-
+    name: "ConnectionButton",
+    methods:{
+        connect_api: function()
+        {
+            axios.get("https://qrmanager.rfc1149.net/auth/google?scope=email%20profile")
+        }
+    }
 }
 
 </script>

@@ -28,15 +28,12 @@
 
 
         </div>
-<<<<<<< HEAD
     </div>
     <div class="pr3 pt4">
     <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
     <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button>  Statistiques </button></router-link>
     <router-link :to="{ name: 'edit', params: { id: id } }"><button> Edit </button></router-link>
     <button v-on:click="$emit('delete_qr', id)"> delete </button>
-=======
->>>>>>> 778211c520178b8799cb7a68707a264a14a9dae4
     </div>
 
 </div>
