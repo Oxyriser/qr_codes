@@ -1,7 +1,7 @@
 defmodule QrManagerWeb.URLController do
   use QrManagerWeb, :controller
 
-  require Ecto.Query
+  import Ecto.Query
 
   alias QrManager.URLManager
   alias QrManager.URLManager.URL
