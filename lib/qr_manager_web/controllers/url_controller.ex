@@ -8,17 +8,18 @@ defmodule QrManagerWeb.URLController do
 
   def index(conn, _params) do
     user = conn.assigns[:user]
+    IO.inspect(user)
     if user != nil do
       urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
       json(conn, %{"liste" => Enum.map(urls, &extract/1)})
     else
       conn
-      |> send_resp(403, "Forbidden")
+      |> send_resp(403, "forbidden")
     end
   end
 
   defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
-    %{url: url, id: id}
+    %{url: url, id: "https://qrmanager.rfc1149.net/redirect/" <> id}
   end
 
   def new(conn, _params) do
@@ -44,11 +45,11 @@ defmodule QrManagerWeb.URLController do
         json(conn, extract(url))
       else
         conn
-        |> send_resp(403, "Forbidden")
+        |> send_resp(403, "forbidden")
       end 
     else
       conn
-      |> send_resp(403, "Forbidden")
+      |> send_resp(403, "forbidden")
     end
   end
 
@@ -64,9 +65,6 @@ defmodule QrManagerWeb.URLController do
     conn
     |> put_flash(:info, "Url updated successfully.")
     |> redirect(to: Routes.url_path(conn, :show, url.id))
-
-      # {:error, %Ecto.Changeset{} = changeset} ->
-      #   render(conn, "edit.html", url: url, changeset: changeset)
   end
 
   def delete(conn, %{"id" => id}) do
@@ -79,7 +77,7 @@ defmodule QrManagerWeb.URLController do
   end
 
   def stats(conn, %{"id" => id}), do: render(conn, "bonjour #{id}")
-  def stats(conn, _paramas), do: text(conn, "bonjour!")
+  def stats(conn, _params), do: text(conn, "bonjour!")
 
   def redirection(conn, %{"id" => id}) do
     url = URLManager.get_url!(id).url
