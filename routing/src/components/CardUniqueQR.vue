@@ -32,6 +32,20 @@ export default {
             return this.redirectHandle + this.short_url
         }
     },
+    watch: {
+        short_url: function() {
+                    var vm = this
+            axios.get(this.apiHandle + this.short_url,  {withCredentials: true})
+            .then(function (response) {
+                vm.url = _.capitalize(response.data.url)
+                console.log(response.data.url)
+                })
+            .catch(function (error) {
+                vm.answer = 'Error! Could not reach the API??? ' + error
+                console.log(error)
+                })
+        }
+    },
     created: function() {
         var vm = this
         axios.get(this.apiHandle + this.short_url,  {withCredentials: true})
