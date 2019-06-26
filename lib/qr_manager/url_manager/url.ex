@@ -6,6 +6,9 @@ defmodule QrManager.URLManager.URL do
 
   schema "urls" do
     field :url, :string
+    field :name, :string
+    field :number_of_access, :integer, default: 0
+    field :representation, :binary
 
     belongs_to :user, QrManager.UserManager.User
 
