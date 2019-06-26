@@ -20,7 +20,7 @@ defmodule QrManager.MixProject do
   def application do
     [
       mod: {QrManager.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:corsica, :logger, :runtime_tools]
     ]
   end
 
@@ -40,7 +40,7 @@ defmodule QrManager.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:cors_plug, "~> 1.5", only: :dev},
+      {:corsica, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
