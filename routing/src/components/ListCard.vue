@@ -1,12 +1,14 @@
 <template>
-<div class="ListCard">
-    <card-unique-q-r
-    @reload="$emit('reload')"
-    v-for="id in ids"
-    v-bind:key="id"
-    v-bind:short_url="id">
-    </card-unique-q-r>
-</div>
+  <div class="center tc">
+    <div class="ListCard">
+        <card-unique-q-r
+        @reload="$emit('reload')"
+        v-for="id in ids"
+        v-bind:key="id"
+        v-bind:short_url="id">
+        </card-unique-q-r>
+    </div>
+  </div>
 </template>
 
 <script>
