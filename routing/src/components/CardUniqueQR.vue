@@ -20,7 +20,8 @@ export default {
             subtitle: "soustitre",
             url: "https://url.com",
             answer: "a",
-            apiHandle: "http://qrmanager.rfc1149.net/url/"
+            apiHandle: "https://qrmanager.rfc1149.net/url/",
+            redirectHandle: "/redirect"
         }
     },
     props: {
