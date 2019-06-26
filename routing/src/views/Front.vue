@@ -62,8 +62,8 @@ export default {
       console.log
       axios.post(this.apiHandle, querystring.stringify(this.req), { withCredentials: true,  })
       .then(function (response) {
-            vm.answer = _.capitalize(response.data.answer)
-            
+            console.log(response.data)
+            this.short_url = response.data.id
             })
         .catch(function (error) {
             vm.answer = 'Error! Could not reach the API. ' + error

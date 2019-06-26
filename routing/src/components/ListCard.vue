@@ -1,10 +1,10 @@
 <template>
 <div class="ListCard">
-<ul class="list pl0">
-    <li v-for="card_id in ids" class="list pl0">
-        <CardUniqueQR class="" :short_url="card_id"></CardUniqueQR>
-    </li>
-</ul>
+    <card-unique-q-r
+    v-for="id in ids"
+    v-bind:key="id"
+    v-bind:short_url="id">
+    </card-unique-q-r>
 </div>
 </template>
 

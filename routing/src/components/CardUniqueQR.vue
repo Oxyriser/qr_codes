@@ -18,10 +18,10 @@ export default {
         return {
             title: "titre",
             subtitle: "soustitre",
-            url: "https://url.com",
+            url: "https://url2.com",
             answer: "a",
             apiHandle: "https://qrmanager.rfc1149.net/url/",
-            redirectHandle: "/redirect"
+            redirectHandle: "https://qrmanager.rfc1149.net/redirect/"
         }
     },
     props: {
@@ -29,20 +29,21 @@ export default {
     },
     computed: {
         server_url: function() {
-            return this.apiHandle + this.short_url
+            return this.redirectHandle + this.short_url
         }
     },
-    created: _.debounce(function() {
+    created: function() {
         var vm = this
         axios.get(this.apiHandle + this.short_url,  {withCredentials: true})
             .then(function (response) {
                 vm.url = _.capitalize(response.data.url)
+                console.log(response.data.url)
                 })
             .catch(function (error) {
-                vm.answer = 'Error! Could not reach the API. ' + error
-                
+                vm.answer = 'Error! Could not reach the API??? ' + error
+                onsole.log(response.data.url)
                 })
-        }, 500, {leading:false})
+        }
 
     
 }

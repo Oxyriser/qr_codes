@@ -54,12 +54,11 @@ export default {
         .catch(function (error) {
           if(error.response) {
             console.log(error.response.status)
-
+            if(error.response.status == 401) {
+               this.notconnected = true
+               console.log("not connected:")
+            }
           }
-          else {
-            console.log("erreur je n'ai pas recçu de reponse du serveur..." + error)
-          }
-          this.notconnected = true
         })
 
     }
