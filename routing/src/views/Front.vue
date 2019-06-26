@@ -58,7 +58,6 @@ export default {
     serveQR:function (message) {
       var vm = this
       console.log(querystring.stringify(this.req));
-      console.log
       axios.post(this.apiHandle, querystring.stringify(this.req), { withCredentials: true,  })
       .then(function (response) {
             console.log(response.data)

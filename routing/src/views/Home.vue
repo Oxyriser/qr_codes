@@ -3,7 +3,8 @@
     <TopBarHome class="">
     </TopBarHome>
     <PleaseConnect v-if="notconnected" @click="get_QR" class=""> </PleaseConnect>
-    <ListCard @reload="get_QR" class="" :ids="shorts"></ListCard>    
+    <ListCard 
+    @delete_qr="remove_QR" class="" :ids="shorts"></ListCard>    
   </div>
   
 </template>
@@ -60,7 +61,24 @@ export default {
           }
         })
 
+    },
+    remove_QR: function(id) {
+      var vm = this
+      axios.delete(this.apiHandle + "/" + id, {withCredentials: true})
+      .then(function (response) {
+          console.log(response)
+          vm.get_QR()
+        })
+        .catch(function (error) {
+          if(error.response) {
+            console.log(error.response.status)
+            if(error.response.status == 401) {
+              console.log("not connected")
+              vm.notconnected = true
+            }
+          }
+        })
+      }
     }
-  }
-};
+}
 </script>

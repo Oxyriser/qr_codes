@@ -18,8 +18,8 @@
     <div class="pr3 pt4">
     <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
     <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button>  Statistiques </button></router-link>
-    <router-link :to="{ name: 'edit', params: { id: short_url } }"><button> Edit </button></router-link>
-    <button v-on:click="delete_qr"> delete </button>
+    <router-link :to="{ name: 'edit', params: { id: id } }"><button> Edit </button></router-link>
+    <button v-on:click="$emit('delete_qr', id)"> delete </button>
     </div>
 
 </div>
@@ -46,23 +46,6 @@ export default {
         url: String,
         short_url: String,
         id: String
-    },
-
-    methods: {
-        delete_qr: function (message) {
-            var vm = this
-            console.log("pwiew piew "  + this.apiHandle + this.id)
-            axios.delete(this.apiHandle + this.id, { withCredentials: true,  })
-                .then(function (response) {
-                        console.log(response)
-                })
-                .catch(function (error) {
-                    console.log("piew" + error)
-
-                    vm.answer = 'Error! Could not reach the API. ' + error
-                })
-            this.$emit("reload")
-        }
     }
 }
 </script>
