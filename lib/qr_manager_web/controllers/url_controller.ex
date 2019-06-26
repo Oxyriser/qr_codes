@@ -38,7 +38,7 @@ defmodule QrManagerWeb.URLController do
       conn
       |> put_flash(:info, "Url created successfully.")
       |> redirect(to: Routes.url_path(conn, :show, url.id))
-      {:error, uri} -> json(conn, %{error: "error"})
+      {:error, uri} -> conn |> send_resp(400, "bad request")
     end
   end
 
