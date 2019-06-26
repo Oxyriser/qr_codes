@@ -8,8 +8,13 @@ defmodule QrManagerWeb.URLController do
 
   def index(conn, _params) do
     user = conn.assigns[:user]
-    urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
-    json(conn, %{"liste" => Enum.map(urls, &extract/1)})
+    if user != nil do
+      urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
+      json(conn, %{"liste" => Enum.map(urls, &extract/1)})
+    else
+      conn
+      |> send_resp(403, "Forbidden")
+    end
   end
 
   defp extract(%QrManager.URLManager.URL{url: url, id: id}) do
@@ -38,10 +43,12 @@ defmodule QrManagerWeb.URLController do
       if (user_id ==  url.user_id) do
         json(conn, extract(url))
       else
-        raise "unauthorized access"
+        conn
+        |> send_resp(403, "Forbidden")
       end 
     else
-      raise "unauthorized access"
+      conn
+      |> send_resp(403, "Forbidden")
     end
   end
 
