@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "front",
+      name: "main",
       component: Front
     },
     {

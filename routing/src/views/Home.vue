@@ -2,6 +2,7 @@
   <div class="home">
     <TopBarHome class="">
     </TopBarHome>
+    <PleaseConnect :v-if="notconnected" @click="get_QR" class=""> </PleaseConnect>
     <ListCard class="" :ids="shorts"></ListCard>    
   </div>
   
@@ -13,11 +14,13 @@ import _ from 'lodash'
 import axios from 'axios'
 import TopBarHome from "../components/TopBarHome.vue"
 import ListCard from "../components/ListCard.vue"
+import PleaseConnect from "../components/PleaseConnect.vue"
 
 export default {
   components: {
     ListCard,
-    TopBarHome
+    TopBarHome,
+    PleaseConnect
   },
   data: function () {
     return {
@@ -27,7 +30,8 @@ export default {
 
       shorts: [
       ],
-      test: "nope"
+      test: "nope",
+      notconnected: false
     }
   },
   created: function() {
@@ -44,10 +48,18 @@ export default {
           vm.shorts = response.data.liste.map(function(qr) {return qr.id})
           vm.test= "yeah!"
           console.log(vm.shorts)
+          this.notconnected = false
+
         })
         .catch(function (error) {
-          console.log("erreur d'acces a la liste." + error)
-          vm.test ="honoooo"
+          if(error.response) {
+            console.log(error.response.status)
+
+          }
+          else {
+            console.log("erreur je n'ai pas recçu de reponse du serveur..." + error)
+          }
+          this.notconnected = true
         })
 
     }

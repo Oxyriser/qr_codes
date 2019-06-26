@@ -17,6 +17,8 @@
 // @ is an alias to /src
 import _ from 'lodash'
 import axios from 'axios'
+import  querystring from 'querystring'
+
 import GenerateForm from "../components/GenerateForm.vue"
 import TitleBar from "../components/TitleBar.vue"
 import CardUniqueQR from "../components/CardUniqueQR.vue"
@@ -38,8 +40,14 @@ export default {
       ],
       generated: false,
       apiHandle: "https://qrmanager.rfc1149.net/url",
-      req: {url: "test"}
 
+    }
+  },
+  computed:
+  {
+    req: function()
+    {
+      return {url: this.input}
     }
   },
   created: function() {
@@ -50,11 +58,12 @@ export default {
     serveQR: _.debounce( function (message) {
       var vm = this
       this.generated = true
-      axios.post(this.apiHandle, this.req, { withCredentials: true, headers: {
-  'Content-Type': 'application/x-www-form-urlencoded'
-} })
+      console.log(querystring.stringify(this.req));
+      console.log
+      axios.post(this.apiHandle, querystring.stringify(this.req), { withCredentials: true,  })
       .then(function (response) {
             vm.answer = _.capitalize(response.data.answer)
+            
             })
         .catch(function (error) {
             vm.answer = 'Error! Could not reach the API. ' + error

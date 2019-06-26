@@ -37,7 +37,9 @@ export default {
             placeholder: "https://qrm.fr",
             message: "",
             title: "",
-            subtitle: ""
+            subtitle: "",
+            MonQR: "ha",
+            inscriptions: "bb"
         }
     }
 }

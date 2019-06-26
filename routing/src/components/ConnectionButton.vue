@@ -1,14 +1,13 @@
 <template>
-    <div class="">
-        <a href="https://qrmanager.rfc1149.net/" target="_blank"> Connection </a>
-    </div>
+        <a href="https://qrmanager.rfc1149.net/" target="_blank" class="link">Connection</a>
 </template>
 
 <script>
 
 import axios from "axios"
 export default {
-    name: "connectionButton"
+    name: "ConnectionButton"
+
 }
 
 </script>
