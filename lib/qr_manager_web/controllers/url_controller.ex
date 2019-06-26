@@ -81,7 +81,11 @@ defmodule QrManagerWeb.URLController do
 
   def redirection(conn, %{"id" => id}) do
     url = URLManager.get_url!(id)
-    update(url,  [inc: [number_of_access: 1]])
+    url
+    |> QrManager.Repo.update([inc: [number_of_access: 1]])
+    |> QrManager.Repo.update_all([])
+
     redirect(conn, external: url.url)
+    QrManager.Repo.update_all()
   end
 end
