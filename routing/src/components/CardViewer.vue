@@ -7,11 +7,12 @@
         <div class="A pa1">
              <h4 class="f3">{{ title }} </h4>
         <h5 class="f4">{{ subtitle }}</h5>
-        <p class="f4">{{ url }}</p>
+        <h5>{{subtitleSecond}}</h5>
         </div>
         <div class="b pl5">
             <ImageQR class="center" :data="short_url"></ImageQR>
             <p class="f5"> {{ short_url }} </p>
+            <p class="f4">{{ url }}</p>
         </div>
     </div>
     <div class="pr3 pt4">
@@ -36,6 +37,7 @@ export default {
     props: {
         title: String,
         subtitle: String,
+        subtitleSecond: String,
         url: String,
         short_url: String
     }

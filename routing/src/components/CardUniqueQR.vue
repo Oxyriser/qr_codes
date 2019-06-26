@@ -1,6 +1,6 @@
 <template>
 <div class="CardUniqueQR">
-<CardViewer class="" :title="title" :subtitle="subtitle" :url="url" :short_url="server_url"></CardViewer>
+<CardViewer class="" :title="title" :subtitle="subtitle" :subtitleSecond="subtitleSecond" :url="url" :short_url="server_url"></CardViewer>
 </div>
 </template>
 
@@ -21,7 +21,8 @@ export default {
             url: "https://url2.com",
             answer: "a",
             apiHandle: "https://qrmanager.rfc1149.net/url/",
-            redirectHandle: "https://qrmanager.rfc1149.net/redirect/"
+            redirectHandle: "https://qrmanager.rfc1149.net/redirect/",
+            subtitleSecond: "URL"
         }
     },
     props: {
@@ -45,7 +46,7 @@ export default {
                 })
         }
 
-    
+
 }
 </script>
 

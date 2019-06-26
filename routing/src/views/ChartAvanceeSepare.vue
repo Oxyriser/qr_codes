@@ -71,8 +71,8 @@ export default {
             })
     },
     getJson () {
-      axios.get(`http://jsonplaceholder.typicode.com/users/1`)
-      //axios.get(`http://qrmanager.rfc1149.net/api/v1/url/' + v1 + 'stats`)
+      //axios.get(`http://jsonplaceholder.typicode.com/users/1`)
+      axios.get(`http://qrmanager.rfc1149.net/api/v1/url/' + v1 + 'stats`)
       .then(response => {
         // JSON responses are automatically parsed.
         this.users = response.data
