@@ -80,12 +80,10 @@ defmodule QrManagerWeb.URLController do
   def stats(conn, _params), do: text(conn, "bonjour!")
 
   def redirection(conn, %{"id" => id}) do
-    url = URLManager.get_url!(id)
-    url
-    |> QrManager.Repo.update([inc: [number_of_access: 1]])
+    from(u in URL, where u.id = ^id, update: [inc: [number_of_access: 1]])
     |> QrManager.Repo.update_all([])
 
+    url = URLManager.get_url!(id).url
     redirect(conn, external: url.url)
-    QrManager.Repo.update_all()
   end
 end
