@@ -42,7 +42,7 @@ export default {
                 })
             .catch(function (error) {
                 vm.answer = 'Error! Could not reach the API??? ' + error
-                onsole.log(response.data.url)
+                console.log(error)
                 })
         }
 
