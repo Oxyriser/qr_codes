@@ -12,8 +12,7 @@ defmodule QrManagerWeb.URLController do
       urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
       json(conn, %{"liste" => Enum.map(urls, &extract/1)})
     else
-      conn
-      |> send_resp(401, "You are not connected")
+      conn |> send_resp(401, "You are not connected")
     end
   end
 
@@ -28,12 +27,6 @@ defmodule QrManagerWeb.URLController do
       %URI{host: nil} -> {:error, uri}
           uri -> if(uri.scheme == "http" or uri.scheme == "https", do: {:ok, uri}, else: {:error, uri})
     end
-  end
-
-  def new(conn, _params) do
-    user = conn.assigns[:user]
-    changeset = URLManager.change_url(%URL{})
-    render(conn, "new.html", user_id: user.id, changeset: changeset)
   end
 
   def create(conn, params) do
@@ -51,39 +44,34 @@ defmodule QrManagerWeb.URLController do
 
   def show(conn, %{"id" => id}) do
     user = conn.assigns[:user]
-    if user != nil do
-      user_id = user.id
-      url = URLManager.get_url!(id)
-      if (user_id ==  url.user_id) do
-        json(conn, extract(url))
-      else
-        conn
-        |> send_resp(403, "forbidden")
-      end 
-    else
-      conn
-      |> send_resp(401, "You are not connected")
+    url = URLManager.get_url!(id)
+    cond do
+      user == nil -> conn |> send_resp(401, "You are not connected")
+      user.id != url.user_id -> conn |> send_resp(403, "forbidden")
+      true -> json(conn, extract(url))
     end
   end
 
-  def edit(conn, %{"id" => id}) do
-    url = URLManager.get_url!(id)
-    changeset = URLManager.change_url(url)
-    render(conn, "edit.html", url: url, changeset: changeset)
-  end
-
   def update(conn, %{"id" => id, "url" => url_params}) do
+    user = conn.assigns[:user]
     url = URLManager.get_url!(id)
-    {:ok, url} = URLManager.update_url(url, url_params)
-    conn
-    |> put_flash(:info, "Url updated successfully.")
-    |> redirect(to: Routes.url_path(conn, :show, url.id))
+    cond do
+      user == nil -> conn |> send_resp(401, "You are not connected")
+      user.id != url.user_id -> conn |> send_resp(403, "forbidden")
+      true -> {:ok, url} = URLManager.update_url(url, url_params)
+        json(conn, extract(url))
+    end
   end
 
   def delete(conn, %{"id" => id}) do
+    user = conn.assigns[:user]
     url = URLManager.get_url!(id)
-    {:ok, _url} = URLManager.delete_url(url)
-    json(conn, %{done: "done"})
+    cond do
+      user == nil -> conn |> send_resp(401, "You are not connected")
+      user.id != url.user_id -> conn |> send_resp(403, "forbidden")
+      true -> {:ok, _url} = URLManager.delete_url(url)
+        json(conn, %{done: "done"})
+    end
   end
 
   def stats(conn, %{"id" => id}), do: render(conn, "bonjour #{id}")
