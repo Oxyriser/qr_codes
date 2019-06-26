@@ -22,39 +22,40 @@ defmodule QrManagerWeb.URLController do
 
   def create(conn, params) do
     user = conn.assigns[:user]
-    IO.inspect(params)
     {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
-      conn
-      |> put_flash(:info, "Url created successfully.")
-      |> redirect(to: Routes.url_path(conn, :show, url.id))
+    json(conn, extract(url))
   end
 
   def show(conn, %{"id" => id}) do
     user = conn.assigns[:user]
-    IO.puts "Je suis deja passe par la"
-    if user != nil do
-      user_id = user.id
-      url = URLManager.get_url!(id)
-      if user_id ==  url.user_id do
-        json(conn, extract(url))
-      else
-        conn |> send_resp(403, "forbidden")
-      end 
-    else
-      conn |> send_resp(401, "You are not connected")
+    url = URLManager.get_url!(id)
+    cond do
+      user == nil -> conn |> send_resp(401, "You are not connected")
+      user != url.user_id -> conn |> send_resp(403, "forbidden")
+      true -> json(conn, exctract(url))
     end
   end
 
   def update(conn, %{"id" => id, "url" => url_params}) do
+    user = conn.assigns[:user]
     url = URLManager.get_url!(id)
-    {:ok, url} = URLManager.update_url(url, url_params)
-    json(conn, %{url: url.url})
+    cond do
+      user == nil -> conn |> send_resp(401, "You are not connected")
+      user != url.user_id -> conn |> send_resp(403, "forbidden")
+      true -> {:ok, url} = URLManager.update_url(url, url_params)
+        json(conn, exctract(url))
+    end
   end
 
   def delete(conn, %{"id" => id}) do
+    user = conn.assigns[:user]
     url = URLManager.get_url!(id)
-    {:ok, _url} = URLManager.delete_url(url)
-    json(conn, %{done: "done"})
+    cond do
+      user == nil -> conn |> send_resp(401, "You are not connected")
+      user != url.user_id -> conn |> send_resp(403, "forbidden")
+      true -> {:ok, _url} = URLManager.delete_url(url)
+        json(conn, %{done: "done"})
+    end
   end
 
   def stats(conn, %{"id" => id}), do: render(conn, "bonjour #{id}")
