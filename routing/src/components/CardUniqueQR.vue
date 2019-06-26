@@ -1,6 +1,6 @@
 <template>
 <div class="CardUniqueQR">
-<CardViewer class="" :title="title" :subtitle="subtitle" :subtitleSecond="subtitleSecond" :url="url" :short_url="server_url"></CardViewer>
+<CardViewer @reload="$emit('reload')" class="" :title="title" :subtitle="subtitle" :subtitleSecond="subtitleSecond" :url="url" :short_url="server_url" :id="short_url"></CardViewer>
 </div>
 </template>
 

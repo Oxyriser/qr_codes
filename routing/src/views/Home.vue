@@ -3,7 +3,7 @@
     <TopBarHome class="">
     </TopBarHome>
     <PleaseConnect v-if="notconnected" @click="get_QR" class=""> </PleaseConnect>
-    <ListCard class="" :ids="shorts"></ListCard>    
+    <ListCard @reload="get_QR" class="" :ids="shorts"></ListCard>    
   </div>
   
 </template>

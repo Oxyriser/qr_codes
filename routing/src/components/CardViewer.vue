@@ -19,7 +19,7 @@
     <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
     <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button>  Statistiques </button></router-link>
     <router-link :to="{ name: 'edit', params: { id: short_url } }"><button> Edit </button></router-link>
-
+    <button v-on:click="delete_qr"> delete </button>
     </div>
 
 </div>
@@ -27,11 +27,16 @@
 
 <script>
 import ImageQR from "./ImageQR.vue"
-
+import axios from 'axios'
 export default {
        components: {
         ImageQR,
 
+    },
+    data: function() {
+        return {
+            apiHandle: "https://qrmanager.rfc1149.net/url/"
+        }
     },
     name: "CardViewer",
     props: {
@@ -39,7 +44,25 @@ export default {
         subtitle: String,
         subtitleSecond: String,
         url: String,
-        short_url: String
+        short_url: String,
+        id: String
+    },
+
+    methods: {
+        delete_qr: function (message) {
+            var vm = this
+            console.log("pwiew piew "  + this.apiHandle + this.id)
+            axios.delete(this.apiHandle + this.id, { withCredentials: true,  })
+                .then(function (response) {
+                        console.log(response)
+                })
+                .catch(function (error) {
+                    console.log("piew" + error)
+
+                    vm.answer = 'Error! Could not reach the API. ' + error
+                })
+            this.$emit("reload")
+        }
     }
 }
 </script>
