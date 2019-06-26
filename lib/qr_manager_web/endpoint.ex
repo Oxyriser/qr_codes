@@ -1,7 +1,7 @@
 defmodule QrManagerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :qr_manager
 
-  plug Corsica, max_age: 600, origins: ["http://localhost"], expose_headers: ~w(X-Foo)
+  plug Corsica, max_age: 600, plug Corsica, origins: ["http://localhost", "http://bar.com"], expose_headers: ~w(X-Foo)
 
 
   socket "/socket", QrManagerWeb.UserSocket,
