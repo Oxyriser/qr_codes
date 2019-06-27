@@ -2,13 +2,14 @@
 
 
 <template>
-<div class="shadow-1 ma4 flex justify-around m4 pv2 mh3">
-
-    <div class="flex justify-around ph4">
-        <div class="A pa1 mr3 pa3">
+<div class="shadow-1 ma4">
+    <div class="flex justify-around ph3">
+        <div v-if="false" class="A pa1 mr3 pa3">
+          
           <h4 class="f3">{{ title }} </h4>
           <h5 class="f4">{{ subtitle }}</h5>
           <h5 class="f4">{{subtitleSecond}}</h5>
+        
         </div>
         <div class="b pl5 mr3 pa3">
           <ImageQR class="center" :data="short_url"></ImageQR>
@@ -17,25 +18,28 @@
         </div>
         <div class="pr3 pt4 mr3 pa3">
           <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
-          <div class="flex flex-column">
-            <div class="w-25 pa3 mr2 pl4">
-              <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button class ="no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma2 tc br2 pa2 br-pill">  Statistiques </button></router-link><br>
+          <div class="flex flex-column items-center">
+            <div class="mv2">
+              <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button class ="ph3 pv2 no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex tc">  Statistiques </button></router-link><br>
             </div>
-            <div class="w-25 pa3 mr2 pl5">
-              <router-link :to="{ name: 'edit', params: { id: short_url } }"><button class ="no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma2 tc br2 pa2 br-pill"> Edit </button></router-link>
+            <div class="mv2">
+              <router-link :to="{ name: 'edit', params: { id: id } }"><button class ="ph3 pv2 no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex tc "> Edit </button></router-link>
+            </div>
+            <div class="mv2">
+              <button @click="$emit('delete_qr', id)" class ="ph3 pv2 ph4 no-underline near-white bg-animate bg-near-black hover-bg-gray  tc "> delete </button>
             </div>
           </div>
 
 
         </div>
     </div>
+    <!--
     <div class="pr3 pt4">
-    <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
+    <router-link to='/me/stats'><button>  Statistiques </button></router-link>
     <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button>  Statistiques </button></router-link>
     <router-link :to="{ name: 'edit', params: { id: id } }"><button> Edit </button></router-link>
-    <button v-on:click="$emit('delete_qr', id)"> delete </button>
     </div>
-
+    -->
 </div>
 </template>
 

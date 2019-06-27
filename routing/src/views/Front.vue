@@ -1,12 +1,12 @@
 <template>
 
   <div class="front">
-    <TitleBar class="" :url="input">
+    <TitleBar class="" :url="correct_input">
       
     </TitleBar>
     <div class="center tc">
       <GenerateForm class="" @generate="serveQR" @new="input=$event"> Generate </GenerateForm>
-      <CardUniqueQR v-if="generated" class="" :short_url="short_url" ></CardUniqueQR>
+      <CardUniqueQR @delete_qr="remove_QR($event)" v-if="generated" class="" :short_url="short_url" ></CardUniqueQR>
     </div>
     
   </div>
@@ -47,7 +47,15 @@ export default {
   {
     req: function()
     {
-      return {url: this.input}
+      return {url: this.correct_input}
+    },
+    correct_input: function()
+    {
+      if(this.input.match("^https?://")){
+        return this.input
+      }
+      return "https://" + this.input
+
     }
   },
   created: function() {
@@ -68,7 +76,24 @@ export default {
         .catch(function (error) {
             vm.answer = 'Error! Could not reach the API. ' + error
       })
+    },
+    remove_QR: function(id) {
+      var vm = this
+      axios.delete(this.apiHandle + "/" + id, {withCredentials: true})
+      .then(function (response) {
+          console.log(response)
+          vm.get_QR()
+        })
+        .catch(function (error) {
+          if(error.response) {
+            console.log(error.response.status)
+            if(error.response.status == 401) {
+              console.log("not connected")
+              vm.notconnected = true
+            }
+          }
+        })
     }
   }
-};
+}
 </script>
