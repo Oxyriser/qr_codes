@@ -7,7 +7,7 @@
     <button @click="getJsonByPost">Json Test2</button>
     <br><br>-->
 
-    <h3>Show which QR code information?</h3><br>
+    <h3>Show the number of views of this QR code?</h3><br>
 
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
     <button id="ourSmallButton" @click="modeNormal">Number of views</button>&nbsp

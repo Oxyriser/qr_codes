@@ -7,7 +7,7 @@
     <button @click="getJsonByPost">Json Test2</button>
     <br><br>-->
 
-    <h3>Show which QR code information?</h3><br>
+    <h3>Show numbers of views of every QR code?</h3><br>
     <!--Drop down box-->
     <!--<div class="selectBox" style="border-style: solid;border-width: 5px;border-color: black;background-color: black;color: white;width: 300px;margin: auto;">
       <div class="selectBox_show" v-on:click.stop="arrowDown">
