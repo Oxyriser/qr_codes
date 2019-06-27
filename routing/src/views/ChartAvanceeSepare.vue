@@ -7,12 +7,13 @@
     <button @click="getJsonByPost">Json Test2</button>
     <br><br>-->
 
-    <h3>Show the number of views of this QR code?</h3><br>
+    <h3>Show which QR code information?</h3><br>
 
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
     <button id="ourSmallButton" @click="modeNormal">Number of views</button>&nbsp
     <!--<button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
     <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>-->
+    <br><br><button id="ourSmallButton" @click="chargeData">New data</button><br><br>
     <div id="main"></div>
   </div>
 </template>
@@ -78,16 +79,20 @@ export default {
             })
     },
     getJson () {
-      //axios.get(`http://jsonplaceholder.typicode.com/users/1`)
-      axios.get(`https://qrmanager.rfc1149.net/url/stats`,  {withCredentials: true})
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.users = response.data
-        console.log(this.users)
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
+      var vm = this
+      console.log('id = ' + this.$route.params.id)
+      axios.get(`https://qrmanager.rfc1149.net/url/` + this.$route.params.id,  {withCredentials: true})
+          .then(function (response) {
+              vm.urlData = response.data.url
+              vm.data = response.data.number_of_access
+              console.log(response.data)
+              console.log('URL = ' + vm.urlData)
+              console.log('DATA = ' + vm.data)
+              })
+          .catch(function (error) {
+              vm.answer = 'Error! Could not reach the API??? ' + error
+              console.log(error)
+              })
     },
     getJsonByPost () {
       axios.post(`http://jsonplaceholder.typicode.com/posts`, {
@@ -118,6 +123,10 @@ export default {
       this.v1 = index
       this.unitModel = index
       this.unitName = item.value
+    },
+    chargeData () {
+      this.getJson()
+      this.drawChart()
     },
     // -----------------------------------
     drawChart () {
