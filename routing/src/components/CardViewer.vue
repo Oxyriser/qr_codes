@@ -23,7 +23,7 @@
               <router-link :to="{ name: 'ChartSepare', params: { id: id }}"><button class ="ph3 pv2 no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex tc">  Statistiques </button></router-link><br>
             </div>
             <div class="mv2">
-              <router-link :to="{ name: 'edit', params: { id: id } }"><button class ="ph3 pv2 no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex tc "> Edit </button></router-link>
+              <router-link :to="{ name: 'edit', params: { id: id } }"><button class ="no-underline ph3 pv2  near-white bg-animate bg-near-black hover-bg-gray inline-flex tc "> Edit </button></router-link>
             </div>
             <div class="mv2">
               <button @click="$emit('delete_qr', id)" class ="ph3 pv2 ph4 no-underline near-white bg-animate bg-near-black hover-bg-gray  tc "> delete </button>

@@ -78,7 +78,7 @@ export default {
           //handle success
           console.log(response);
           vm.compoKey += 1
-          
+          console.log(vm.compoKey)
       })
       .catch(function (response) {
           //handle error
