@@ -18,6 +18,7 @@ defmodule QrManagerWeb.PageController do
       |> redirect(to: Routes.session_path(conn, :delete))
     else
       redirect(conn, external: "https://qrmanager.rfc1149.net")
+    end
   end
 
 end
