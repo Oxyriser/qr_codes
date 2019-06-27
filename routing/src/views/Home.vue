@@ -2,9 +2,11 @@
   <div class="home">
     <TopBarHome class="">
     </TopBarHome>
-    <PleaseConnect v-if="notconnected" @click="get_QR" class=""> </PleaseConnect>
+    <PleaseConnect v-if="!connected" @click="get_QR" class=""> </PleaseConnect>
     <ListCard 
-    @delete_qr="remove_QR" class="" :ids="shorts"></ListCard>    
+    v-if="(shorts.length!=0)"
+    @delete_qr="remove_QR" class="" :ids="shorts"></ListCard> 
+    <p v-else class="tc" > Allez creer des qr codes ! </p>
   </div>
   
 </template>
