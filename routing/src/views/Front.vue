@@ -75,7 +75,15 @@ export default {
 
             })
         .catch(function (error) {
-            vm.answer = 'Error! Could not reach the API. ' + error
+            if(error.response) {
+            console.log(error.response.status)
+            if(error.response.status == 401) {
+              console.log("not connected")
+              window.location.replace('https://qrmanager.rfc1149.net/auth/login')
+              vm.notconnected = true
+
+            }
+          }
       })
     },
     remove_QR: function(id) {
@@ -89,7 +97,8 @@ export default {
           if(error.response) {
             console.log(error.response.status)
             if(error.response.status == 401) {
-              console.log("not connected")
+              console.log("not connected haa")
+              window.location.replace('https://qrmanager.rfc1149.net/auth/login')
               vm.notconnected = true
             }
           }
