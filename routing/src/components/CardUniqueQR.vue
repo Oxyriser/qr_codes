@@ -21,7 +21,7 @@ export default {
         return {
             title: "titre",
             subtitle: "soustitre",
-            url: "https://url2.com",
+            url: "https://qrmanager.rfc1149.net",
             answer: "a",
             apiHandle: "https://qrmanager.rfc1149.net/url/",
             redirectHandle: "https://qrmanager.rfc1149.net/redirect/",

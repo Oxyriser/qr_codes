@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill  bg-black" @click="connect_api" > connect </a>
+    <a href="https://qrmanager.rfc1149.net/auth/login" target="_blank" class="mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill  bg-black" @click="connect_api" > connect </a>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
     methods:{
         connect_api: function()
         {
-            axios.get("https://qrmanager.rfc1149.net/auth/google?scope=email%20profile")
+            axios.get("https://qrmanager.rfc1149.net/auth/login")
         }
     }
 }
