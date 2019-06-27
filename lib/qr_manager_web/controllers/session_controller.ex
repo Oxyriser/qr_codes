@@ -33,6 +33,7 @@ defmodule QrManagerWeb.SessionController do
     case Repo.get_by(User, email: changeset.changes.email) do
       nil ->
         Repo.insert(changeset)
+
       user ->
         {:ok, user}
     end
@@ -43,5 +44,4 @@ defmodule QrManagerWeb.SessionController do
     |> clear_session
     |> redirect(to: Routes.page_path(conn, :index))
   end
-
 end

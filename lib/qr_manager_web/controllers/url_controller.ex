@@ -13,43 +13,57 @@ defmodule QrManagerWeb.URLController do
 
   defp validate_uri(str) do
     uri = URI.parse(str)
+
     case uri do
-      %URI{scheme: nil} -> {:error, uri}
-      %URI{host: nil} -> {:error, uri}
-          uri -> if(uri.scheme == "http" or uri.scheme == "https", do: {:ok, uri}, else: {:error, uri})
+      %URI{scheme: nil} ->
+        {:error, uri}
+
+      %URI{host: nil} ->
+        {:error, uri}
+
+      uri ->
+        if(uri.scheme == "http" or uri.scheme == "https", do: {:ok, uri}, else: {:error, uri})
     end
   end
 
   def index(conn, _params) do
     user = conn.assigns[:user]
+
     if user != nil do
       urls = URL |> Ecto.Query.where(user_id: ^user.id) |> QrManager.Repo.all()
       json(conn, %{"liste" => Enum.map(urls, &extract/1)})
     else
-      send_resp conn, 401, "You are not connected"
+      send_resp(conn, 401, "You are not connected")
     end
   end
 
   def create(conn, params) do
     user = conn.assigns[:user]
+
     if user != nil do
-     str = params["url"]
-     case validate_uri(str) do
-       {:ok, _uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
-       conn
-       |> put_flash(:info, "Url created successfully.")
-       |> redirect(to: Routes.url_path(conn, :show, url.id))
-       {:error, _uri} -> send_resp(conn, 400, "bad request")
-     end
-     else
-      send_resp conn, 401, "You are not connected"
-     end
+      str = params["url"]
+
+      case validate_uri(str) do
+        {:ok, _uri} ->
+          {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
+
+          conn
+          |> put_flash(:info, "Url created successfully.")
+          |> redirect(to: Routes.url_path(conn, :show, url.id))
+
+        {:error, _uri} ->
+          send_resp(conn, 400, "bad request")
+      end
+    else
+      send_resp(conn, 401, "You are not connected")
+    end
   end
 
-  #FIXME: remove code duplication
+  # FIXME: remove code duplication
   def show(conn, %{"id" => id}) do
     user = conn.assigns[:user]
     url = URLManager.get_url!(id)
+
     cond do
       user == nil -> send_resp(conn, 401, "You are not connected")
       user.id != url.user_id -> send_resp(conn, 403, "forbidden")
@@ -60,10 +74,16 @@ defmodule QrManagerWeb.URLController do
   def update(conn, %{"id" => id, "url" => url_params}) do
     user = conn.assigns[:user]
     url = URLManager.get_url!(id)
+
     cond do
-      user == nil -> send_resp(conn, 401, "You are not connected")
-      user.id != url.user_id -> send_resp(conn, 403, "forbidden")
-      true -> {:ok, url} = URLManager.update_url(url, url_params)
+      user == nil ->
+        send_resp(conn, 401, "You are not connected")
+
+      user.id != url.user_id ->
+        send_resp(conn, 403, "forbidden")
+
+      true ->
+        {:ok, url} = URLManager.update_url(url, url_params)
         json(conn, extract(url))
     end
   end
@@ -71,11 +91,17 @@ defmodule QrManagerWeb.URLController do
   def delete(conn, %{"id" => id}) do
     user = conn.assigns[:user]
     url = URLManager.get_url!(id)
+
     cond do
-      user == nil -> send_resp(conn, 401, "You are not connected")
-      user.id != url.user_id -> send_resp(conn, 403, "forbidden")
-      true -> {:ok, _url} = URLManager.delete_url(url)
-         send_resp(conn, 204, "no content")
+      user == nil ->
+        send_resp(conn, 401, "You are not connected")
+
+      user.id != url.user_id ->
+        send_resp(conn, 403, "forbidden")
+
+      true ->
+        {:ok, _url} = URLManager.delete_url(url)
+        send_resp(conn, 204, "no content")
     end
   end
 

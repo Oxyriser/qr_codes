@@ -13,5 +13,4 @@ defmodule QrManagerWeb.PageController do
       redirect(conn, external: "https://qrmanager.rfc1149.net/auth/google?scope=email%20profile")
     end
   end
-
 end

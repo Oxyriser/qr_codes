@@ -8,6 +8,5 @@ defmodule QrManager.Repo.Migrations.CreateUrls do
 
       timestamps()
     end
-
   end
 end

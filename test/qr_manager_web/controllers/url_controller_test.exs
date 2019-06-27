@@ -75,6 +75,7 @@ defmodule QrManagerWeb.URLControllerTest do
     test "deletes chosen url", %{conn: conn, url: url} do
       conn = delete(conn, Routes.url_path(conn, :delete, url))
       assert redirected_to(conn) == Routes.url_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.url_path(conn, :show, url))
       end

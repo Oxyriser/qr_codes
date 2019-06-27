@@ -19,7 +19,6 @@ defmodule QrManager.Plugs.SetUser do
       else
         assign(conn, :user, nil)
       end
-
     end
   end
 end
