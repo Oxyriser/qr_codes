@@ -38,6 +38,7 @@ export default {
       postInfo: [],
       errors: [],
       data: [],
+      urlData: '',
       // Drop down box
       nbQR: '',
       unitModel: '',
@@ -135,7 +136,7 @@ export default {
             data: ['Number of views']
           },
           xAxis: {
-            data: ['All']
+            data: [this.urlData]
           },
           yAxis: {},
           series: [
@@ -227,9 +228,10 @@ export default {
       console.log('id = ' + this.$route.params.id)
       axios.get(`https://qrmanager.rfc1149.net/url/` + this.$route.params.id,  {withCredentials: true})
           .then(function (response) {
-              // vm.url = response.data.url
+              vm.urlData = response.data.url
               vm.data = response.data.number_of_access
               console.log(response.data)
+              console.log('URL = ' + vm.urlData)
               console.log('DATA = ' + vm.data)
               })
           .catch(function (error) {
