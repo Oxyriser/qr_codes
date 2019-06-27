@@ -5,11 +5,11 @@
 <div class="shadow-1 ma4">
     <div class="flex justify-around ph3">
         <div v-if="false" class="A pa1 mr3 pa3">
-          
+
           <h4 class="f3">{{ title }} </h4>
           <h5 class="f4">{{ subtitle }}</h5>
           <h5 class="f4">{{subtitleSecond}}</h5>
-        
+
         </div>
         <div class="b pl5 mr3 pa3">
           <ImageQR class="center" :data="short_url"></ImageQR>
@@ -20,7 +20,7 @@
           <!--<router-link to='/me/stats'><button>  Statistiques </button></router-link>-->
           <div class="flex flex-column items-center">
             <div class="mv2">
-              <router-link :to="{ name: 'ChartSepare', params: { IDQR: '1' }}"><button class ="no-underline ph3 pv2  near-white bg-animate bg-near-black hover-bg-gray inline-flex tc">  Statistiques </button></router-link><br>
+              <router-link :to="{ name: 'ChartSepare', params: { id: id }}"><button class ="ph3 pv2 no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex tc">  Statistiques </button></router-link><br>
             </div>
             <div class="mv2">
               <router-link :to="{ name: 'edit', params: { id: id } }"><button class ="no-underline ph3 pv2  near-white bg-animate bg-near-black hover-bg-gray inline-flex tc "> Edit </button></router-link>

@@ -2,10 +2,10 @@
   <div id="myChart">
     <TopBar class=""></TopBar><br><br>
 
-    <br><br>
+    <!--<br><br>
     <button @click="getJson">Json Test</button>&nbsp;
     <button @click="getJsonByPost">Json Test2</button>
-    <br><br>
+    <br><br>-->
 
     <h3>Show which QR code information?</h3><br>
     <!--Drop down box-->
@@ -83,16 +83,17 @@ export default {
             })
     },
     getJson () {
-      axios.get(`http://jsonplaceholder.typicode.com/users/1`)
-      //axios.get(`http://qrmanager.rfc1149.net/api/v1/url/stats`)
+      //axios.get(`http://jsonplaceholder.typicode.com/users/1`)
+      axios.get(`https://qrmanager.rfc1149.net/url/stats`,  {withCredentials: true})
       .then(response => {
         // JSON responses are automatically parsed.
         this.users = response.data
         console.log(this.users)
       })
-      .catch(e => {
-        this.errors.push(e)
-      })
+      .catch(function (error) {
+          vm.answer = 'Error! Could not reach the API??? ' + error
+          console.log(error)
+          })
     },
     getJsonByPost () {
       axios.post(`http://jsonplaceholder.typicode.com/posts`, {
@@ -201,7 +202,19 @@ export default {
   },
   mounted () {
     this.getData()
-  }
+  },
+  created: function() {
+      var vm = this
+      axios.get(`https://qrmanager.rfc1149.net/url/stats`,  {withCredentials: true})
+          .then(function (response) {
+              // vm.url = response.data.url
+              console.log(response.data)
+              })
+          .catch(function (error) {
+              vm.answer = 'Error! Could not reach the API??? ' + error
+              console.log(error)
+              })
+      }
 }
 </script>
 
