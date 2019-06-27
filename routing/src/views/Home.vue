@@ -58,7 +58,8 @@ export default {
           if(error.response) {
             console.log(error.response.status)
             if(error.response.status == 401) {
-              console.log("not connected")
+              console.log("not connected home get")
+              window.location.replace('https://qrmanager.rfc1149.net/auth/login')
               vm.connected = false
             }
           }
@@ -76,7 +77,8 @@ export default {
           if(error.response) {
             console.log(error.response.status)
             if(error.response.status == 401) {
-              console.log("not connected")
+              console.log("not connected home delete")
+              window.location.replace('https://qrmanager.rfc1149.net/auth/login')
               vm.connected = false
             }
           }
