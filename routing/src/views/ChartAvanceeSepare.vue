@@ -10,8 +10,9 @@
     <h3>Show which QR code information?</h3><br>
 
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
-    <button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
-    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
+    <button id="ourSmallButton" @click="modeNormal">Number of views</button>&nbsp
+    <!--<button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
+    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>-->
     <div id="main"></div>
   </div>
 </template>
@@ -25,7 +26,7 @@ export default {
     TopBar
   },
   props: {
-
+    id: String
   },
   data: function () {
     return {
@@ -36,6 +37,8 @@ export default {
       postBody: 'This is a test!',
       postInfo: [],
       errors: [],
+      data: [],
+      urlData: '',
       // Drop down box
       nbQR: '',
       unitModel: '',
@@ -46,6 +49,10 @@ export default {
     }
   },
   methods: {
+    modeNormal () {
+      this.mode = 2
+      this.drawChart()
+    },
     modeWeek () {
       this.mode = 0
       this.drawChart()
@@ -59,7 +66,7 @@ export default {
       var url = 'test2.json'
       var vm = this
       this.$http.get(url).then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         vm.msg = res.data.DATA[1]
         // Drop down box
         this.nbQR = res.data.DATA[0].nbQRtt
@@ -114,12 +121,36 @@ export default {
     },
     // -----------------------------------
     drawChart () {
-      this.v1 = this.$route.params.IDQR
-      //this.v1 = 1
-      console.log('Adress of QR = ' + this.$route.params.IDQR)
+      this.v1 = 1
+      console.log('Adress of QR = ' + this.$route.params.id)
       // Initialize the echarts instance based on the prepared dom
       let myChart = this.$echarts.init(document.getElementById('main'))
-      if (this.mode) {
+      if (this.mode==2) {
+        // Specify configuration items and data for the chart of month
+        let option = {
+          title: {
+            text: 'Statistics'
+          },
+          tooltip: {},
+          legend: {
+            data: ['Number of views']
+          },
+          xAxis: {
+            data: [this.urlData]
+          },
+          yAxis: {},
+          series: [
+            {
+              name: 'Number of views',
+              type: 'bar',
+              data: [
+                Number(this.data)
+              ]
+            }
+          ]
+        }
+        myChart.setOption(option)
+      }else if (this.mode==1) {
         // Specify configuration items and data for the chart of month
         let option = {
           title: {
@@ -190,14 +221,18 @@ export default {
     }
   },
   mounted () {
-    this.getData()
+    //this.getData()
   },
   created: function() {
       var vm = this
-      axios.get(`https://qrmanager.rfc1149.net/url/stats`,  {withCredentials: true})
+      console.log('id = ' + this.$route.params.id)
+      axios.get(`https://qrmanager.rfc1149.net/url/` + this.$route.params.id,  {withCredentials: true})
           .then(function (response) {
-              // vm.url = response.data.url
+              vm.urlData = response.data.url
+              vm.data = response.data.number_of_access
               console.log(response.data)
+              console.log('URL = ' + vm.urlData)
+              console.log('DATA = ' + vm.data)
               })
           .catch(function (error) {
               vm.answer = 'Error! Could not reach the API??? ' + error

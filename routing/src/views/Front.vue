@@ -57,6 +57,7 @@ export default {
       return "https://" + this.input
 
     }
+  
   },
   created: function() {
         this.debouncedserveQR = _.debounce(this.serveQR, 500)

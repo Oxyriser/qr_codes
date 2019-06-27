@@ -7,6 +7,8 @@
   <div class="flex-grow pa3 flex items-center">
     <HomeButton  class=" mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></HomeButton>  
     <ConnectionButton class=" mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></ConnectionButton>
+    <DisconnectButton class=" mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></DisconnectButton>
+
   </div>
 </nav> 
 </div>
@@ -15,13 +17,14 @@
 <script>
 import HomeButton from "./HomeButton.vue"
 import ConnectionButton from "./ConnectionButton.vue"
-
+import DisconnectButton from "./DisconnectButton.vue"
 
 export default {
     name: "TopBar",
     components: {
     HomeButton,
-    ConnectionButton
+    ConnectionButton,
+    DisconnectButton
   },
     props: {
         connected: {

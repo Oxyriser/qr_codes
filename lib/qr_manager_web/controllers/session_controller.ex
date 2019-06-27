@@ -20,7 +20,7 @@ defmodule QrManagerWeb.SessionController do
         conn
         |> put_flash(:info, "Thank you for signing in!")
         |> put_session(:user_id, user.id)
-        redirect(conn, external: "https://qrmanager.rfc1149.net")
+        |> redirect(to: Routes.page_path(conn, :index))
 
       {:error, _reason} ->
         conn
@@ -39,14 +39,9 @@ defmodule QrManagerWeb.SessionController do
   end
 
   def delete(conn, _params) do
-    if conn.assigns[:user] do
-      IO.inspect("abcd")
-      conn
-      |> configure_session(drop: true)
-      redirect(conn, external: "https://qrmanager.rfc1149.net")
-    else
-      redirect(conn, external: "https://qrmanager.rfc1149.net")
-    end
+    conn
+    |> clear_session
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 
 end
