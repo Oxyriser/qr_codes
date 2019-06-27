@@ -17,7 +17,7 @@ defmodule QrManagerWeb.Router do
   scope "/", QrManagerWeb do
     pipe_through :browser
 
-    get "/", PageController, :login
+    # get "/", PageController, :login
     get "/redirect/:id", URLController, :redirection
     delete "/", UserController, :delete
 
@@ -40,7 +40,8 @@ defmodule QrManagerWeb.Router do
   scope "/auth", QrManagerWeb do
     pipe_through :browser
 
-    get "/signout", SessionController, :delete
+    get "/login", PageController, :login
+    get "/signout", PageController, :logout
     get "/:provider", SessionController, :request
     get "/:provider/callback", SessionController, :create
   end

@@ -15,4 +15,14 @@ defmodule QrManagerWeb.PageController do
     end
     # render(conn, "login.html", changeset: changeset)
   end
+
+  def logout(conn, _params) do
+    changeset = URLManager.change_url(%URLManager.URL{})
+    if conn.assigns[:user] do
+      conn
+      |> redirect(to: Routes.session_path(conn, :delete))
+    else
+      redirect(conn, external: "https://qrmanager.rfc1149.net")
+  end
+
 end
