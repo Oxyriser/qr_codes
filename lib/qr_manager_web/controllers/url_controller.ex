@@ -40,6 +40,7 @@ defmodule QrManagerWeb.URLController do
        |> put_flash(:info, "Url created successfully.")
        |> redirect(to: Routes.url_path(conn, :show, url.id))
        {:error, _uri} -> send_resp(conn, 400, "bad request")
+     end
      else
       send_resp conn, 401, "You are not connected"
      end
