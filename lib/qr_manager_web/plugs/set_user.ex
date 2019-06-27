@@ -1,6 +1,7 @@
 defmodule QrManager.Plugs.SetUser do
+  @moduledoc false
+
   import Plug.Conn
-  import Phoenix.Controller
 
   alias QrManager.{Repo, UserManager.User}
 

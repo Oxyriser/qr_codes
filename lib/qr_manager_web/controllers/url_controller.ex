@@ -6,9 +6,8 @@ defmodule QrManagerWeb.URLController do
   alias QrManager.URLManager
   alias QrManager.URLManager.URL
 
-
   defp extract(url) do
-    url 
+    url
     |> Map.take([:url, :id, :name, :number_of_access, :representation, :inserted_at, :updated_at])
   end
 
@@ -31,16 +30,15 @@ defmodule QrManagerWeb.URLController do
     end
   end
 
-
   def create(conn, params) do
     user = conn.assigns[:user]
     str = params["url"]
     case validate_uri(str) do
-      {:ok, uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
+      {:ok, _uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
       conn
       |> put_flash(:info, "Url created successfully.")
       |> redirect(to: Routes.url_path(conn, :show, url.id))
-      {:error, uri} -> conn |> send_resp(400, "bad request")
+      {:error, _uri} -> conn |> send_resp(400, "bad request")
     end
   end
 
@@ -80,8 +78,8 @@ defmodule QrManagerWeb.URLController do
   def stats(conn, _params), do: text(conn, "bonjour!")
 
   def redirection(conn, %{"id" => id}) do
-    URL 
-    |> where(id: ^id) 
+    URL
+    |> where(id: ^id)
     |> QrManager.Repo.update_all(inc: [number_of_access: 1])
 
     url = URLManager.get_url!(id).url

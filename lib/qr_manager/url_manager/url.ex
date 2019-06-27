@@ -1,4 +1,6 @@
 defmodule QrManager.URLManager.URL do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Changeset
 

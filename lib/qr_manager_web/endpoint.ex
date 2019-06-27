@@ -3,7 +3,6 @@ defmodule QrManagerWeb.Endpoint do
 
   plug Corsica, origins: "*", expose_headers: ~w(X-Foo), allow_credentials: true
 
-
   socket "/socket", QrManagerWeb.UserSocket,
     websocket: true,
     longpoll: false
@@ -36,7 +35,6 @@ defmodule QrManagerWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
