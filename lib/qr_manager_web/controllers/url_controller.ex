@@ -32,14 +32,17 @@ defmodule QrManagerWeb.URLController do
 
   def create(conn, params) do
     user = conn.assigns[:user]
-    str = params["url"]
-    case validate_uri(str) do
-      {:ok, _uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
-      conn
-      |> put_flash(:info, "Url created successfully.")
-      |> redirect(to: Routes.url_path(conn, :show, url.id))
-      {:error, _uri} -> send_resp(conn, 400, "bad request")
-    end
+    if user != nil do
+     str = params["url"]
+     case validate_uri(str) do
+       {:ok, _uri} -> {:ok, url} = URLManager.create_url(Map.put(params, "user_id", user.id))
+       conn
+       |> put_flash(:info, "Url created successfully.")
+       |> redirect(to: Routes.url_path(conn, :show, url.id))
+       {:error, _uri} -> send_resp(conn, 400, "bad request")
+     else
+      send_resp conn, 401, "You are not connected"
+     end
   end
 
   def show(conn, %{"id" => id}) do
