@@ -4,10 +4,10 @@
   <a class="link white-70 hover-white no-underline flex items-center pa3" href="">
   <img src="../assets/qr.png" alt="logo" height="80">
   </a>
-  <div class="flex-grow pa3 flex items-center">
-    <router-link class="mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"
+  <div class="flex-grow pa3 flex flex-column flex-row-ns items-center">
+    <router-link class="mv2 mv0-ns mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"
       to="front"> Nouveau </router-link>
-    <router-link class="mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"
+    <router-link class="mv2 mv0-ns mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"
       to='/url/stats'> Statistiques </router-link>
   </div>
 </nav>

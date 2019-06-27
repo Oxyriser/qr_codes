@@ -3,7 +3,7 @@
 
 <template>
 <div class="shadow-1 ma4">
-    <div class="flex justify-around ph3">
+    <div class="flex justify-around ph3 flex-column flex-row-ns">
         <div v-if="false" class="A pa1 mr3 pa3">
 
           <h4 class="f3">{{ title }} </h4>
@@ -11,7 +11,7 @@
           <h5 class="f4">{{subtitleSecond}}</h5>
 
         </div>
-        <div class="b pl5 mr3 pa3">
+        <div class="b pl5 mr3 pa3 flex flex-column flex-none-ns">
           <ImageQR class="center" :data="short_url"></ImageQR>
           <p class="f5" style="line-height: 90%;"> {{ short_url }} </p>
           <p class="f5" style="line-height: 350%;">{{ url }}</p>
