@@ -42,6 +42,7 @@ defmodule QrManagerWeb.URLController do
     end
   end
 
+  #FIXME: remove code duplication
   def show(conn, %{"id" => id}) do
     user = conn.assigns[:user]
     url = URLManager.get_url!(id)
