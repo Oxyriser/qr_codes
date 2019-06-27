@@ -1,13 +1,13 @@
 <template>
 <div class="TopBar">
-<nav class="flex justify-between bg-black b--black-10">
+<nav class="flex justify-between flex-column flex-row-ns bg-black b--black-10">
   <a class="link white-70 hover-white no-underline flex items-center pa3" href="">
   <img src="../assets/qr.png" alt="logo" height="80">
   </a>
-  <div class="flex-grow pa3 flex items-center">
-    <HomeButton  class=" mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></HomeButton>  
-    <ConnectionButton class=" mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></ConnectionButton>
-    <DisconnectButton class=" mh3 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></DisconnectButton>
+  <div class="flex-grow pa3 flex flex-column flex-row-ns items-center">
+    <HomeButton  class=" mh3 mv1 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></HomeButton>  
+    <ConnectionButton class=" mh3 mv1 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></ConnectionButton>
+    <DisconnectButton class=" mh3 mv1 f6 dib white bg-animate hover-bg-white hover-black no-underline pv2 ph4 br-pill ba b--white-40"></DisconnectButton>
 
   </div>
 </nav> 
