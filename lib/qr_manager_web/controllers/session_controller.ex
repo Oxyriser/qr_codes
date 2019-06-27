@@ -2,7 +2,7 @@ defmodule QrManagerWeb.SessionController do
   use QrManagerWeb, :controller
   plug Ueberauth
 
-  alias QrManager.{UserManager.User, Repo}
+  alias QrManager.{Repo, UserManager.User}
 
   def create(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{

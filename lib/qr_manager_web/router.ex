@@ -22,7 +22,7 @@ defmodule QrManagerWeb.Router do
     delete "/", UserController, :delete
 
   end
-  
+
   scope "/url", QrManagerWeb do
     pipe_through :browser
 
