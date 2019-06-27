@@ -2,7 +2,7 @@ defmodule QrManagerWeb.SessionController do
   use QrManagerWeb, :controller
   plug Ueberauth
 
-  alias QrManager.{Repo, UserManager.User}
+  alias QrManager.{UserManager.User, Repo}
 
   def create(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
@@ -20,7 +20,7 @@ defmodule QrManagerWeb.SessionController do
         conn
         |> put_flash(:info, "Thank you for signing in!")
         |> put_session(:user_id, user.id)
-        |> redirect(to: Routes.url_path(conn, :index))
+        redirect(conn, external: "https://qrmanager.rfc1149.net")
 
       {:error, _reason} ->
         conn
@@ -40,6 +40,7 @@ defmodule QrManagerWeb.SessionController do
 
   def delete(conn, _params) do
     if conn.assigns[:user] do
+      IO.inspect("abcd")
       conn
       |> configure_session(drop: true)
       redirect(conn, external: "https://qrmanager.rfc1149.net")
