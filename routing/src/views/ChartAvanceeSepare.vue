@@ -11,8 +11,8 @@
 
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
     <button id="ourSmallButton" @click="modeNormal">Number of views</button>&nbsp
-    <button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
-    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
+    <!--<button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
+    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>-->
     <div id="main"></div>
   </div>
 </template>
@@ -220,7 +220,7 @@ export default {
     }
   },
   mounted () {
-    this.getData()
+    //this.getData()
   },
   created: function() {
       var vm = this
@@ -229,6 +229,7 @@ export default {
           .then(function (response) {
               // vm.url = response.data.url
               vm.data = response.data.number_of_access
+              console.log(response.data)
               console.log('DATA = ' + vm.data)
               })
           .catch(function (error) {

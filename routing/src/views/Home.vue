@@ -32,7 +32,7 @@ export default {
       shorts: [
       ],
       test: "nope",
-      notconnected: false
+      connected: false
     }
   },
   created: function() {
@@ -49,6 +49,7 @@ export default {
           vm.shorts = response.data.liste.map(function(qr) {return qr.id})
           vm.test= "yeah!"
           console.log(vm.shorts)
+          vm.connected = true
 
         })
         .catch(function (error) {
@@ -56,7 +57,7 @@ export default {
             console.log(error.response.status)
             if(error.response.status == 401) {
               console.log("not connected")
-              vm.notconnected = true
+              vm.connected = false
             }
           }
         })
@@ -74,7 +75,7 @@ export default {
             console.log(error.response.status)
             if(error.response.status == 401) {
               console.log("not connected")
-              vm.notconnected = true
+              vm.connected = false
             }
           }
         })
