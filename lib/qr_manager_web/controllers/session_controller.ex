@@ -20,7 +20,7 @@ defmodule QrManagerWeb.SessionController do
         conn
         |> put_flash(:info, "Thank you for signing in!")
         |> put_session(:user_id, user.id)
-        redirect(conn, external: "https://qrmanager.rfc1149.net")
+        json(conn, %{user_id: user.id})
 
       {:error, _reason} ->
         conn
