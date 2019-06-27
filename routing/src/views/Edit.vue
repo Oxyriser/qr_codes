@@ -91,12 +91,14 @@ export default {
       axios.delete(this.apiHandle + "/" + id, {withCredentials: true})
       .then(function (response) {
           console.log(response)
+          window.location.replace('#/home')
           vm.get_QR()
         })
         .catch(function (error) {
           if(error.response) {
             console.log(error.response.status)
             if(error.response.status == 401) {
+              window.location.replace('https://qrmanager.rfc1149.net/auth/login')
               console.log("not connected")
               vm.notconnected = true
             }
