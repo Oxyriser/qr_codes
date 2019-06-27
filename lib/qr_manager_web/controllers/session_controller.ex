@@ -40,6 +40,7 @@ defmodule QrManagerWeb.SessionController do
 
   def delete(conn, _params) do
     if conn.assigns[:user] do
+      IO.inspect("abcd")
       conn
     |> configure_session(drop: true)
     redirect(conn, external: "https://qrmanager.rfc1149.net")
