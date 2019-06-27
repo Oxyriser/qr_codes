@@ -2,7 +2,7 @@
   <div class="home">
     <TopBarHome class="">
     </TopBarHome>
-    <PleaseConnect v-if="!connected" @click="get_QR" class=""> </PleaseConnect>
+    <PleaseConnect v-if="!connected && false" @click="get_QR" class=""> </PleaseConnect>
     <ListCard 
     v-if="(shorts.length!=0)"
     @delete_qr="remove_QR" class="" :ids="shorts"></ListCard> 

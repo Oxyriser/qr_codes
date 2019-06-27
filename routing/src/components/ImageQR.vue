@@ -1,7 +1,7 @@
 <template>
 <div class="ImageQR">
     <a :href="img" download>
-    <span><img :src="img" alt="" width="80" heigh="80"></span>
+    <span><img :src="img" alt="" width="120" heigh="120"></span>
     </a>
 </div>
 </template>
