@@ -40,7 +40,7 @@ defmodule QrManagerWeb.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> configure_session(drop: true)
+    |> clear_session
     |> redirect(to: Routes.page_path(conn, :login))
   end
 
