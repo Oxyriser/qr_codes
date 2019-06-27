@@ -20,7 +20,6 @@ defmodule QrManagerWeb.Router do
     get "/", PageController, :index
     get "/redirect/:id", URLController, :redirection
     delete "/", UserController, :delete
-
   end
 
   scope "/url", QrManagerWeb do
@@ -45,9 +44,4 @@ defmodule QrManagerWeb.Router do
     get "/:provider", SessionController, :request
     get "/:provider/callback", SessionController, :create
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", QrManagerWeb do
-  #   pipe_through :api
-  # end
 end

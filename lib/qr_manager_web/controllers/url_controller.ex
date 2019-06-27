@@ -81,7 +81,7 @@ defmodule QrManagerWeb.URLController do
 
   # TODO: stats by month/week, url
   def stats(conn, %{"id" => id}), do: show(conn, %{"id" => id})
-  def stats(conn, _params), do: index(conn, _params)
+  def stats(conn, params), do: index(conn, params)
 
   def redirection(conn, %{"id" => id}) do
     URL
