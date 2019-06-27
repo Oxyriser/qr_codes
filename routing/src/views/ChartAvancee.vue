@@ -9,7 +9,7 @@
 
     <h3>Show which QR code information?</h3><br>
     <!--Drop down box-->
-    <div class="selectBox" style="border-style: solid;border-width: 5px;border-color: black;background-color: black;color: white;width: 300px;margin: auto;">
+    <!--<div class="selectBox" style="border-style: solid;border-width: 5px;border-color: black;background-color: black;color: white;width: 300px;margin: auto;">
       <div class="selectBox_show" v-on:click.stop="arrowDown">
         <p>{{unitName}}</p>
         <input type="hidden" name="unit" v-model="unitModel">
@@ -19,11 +19,12 @@
              @click.stop="select(item, index)">{{item.value}}
         </div>
       </div>
-    </div><br><br>
+    </div><br><br>-->
     <!--Close drop down box-->
     <!--<button id="ourButton" @click="drawChart">Show some datas</button><br><br>-->
-    <button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
-    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>
+    <button id="ourSmallButton" @click="modeNormal">Number of views</button>
+    <!--<button id="ourSmallButton" @click="modeWeek">Per week</button>&nbsp
+    <button id="ourSmallButton" @click="modeMonth">Per month</button><br><br>-->
     <div id="main"></div>
   </div>
 </template>
@@ -48,6 +49,9 @@ export default {
       postBody: 'This is a test!',
       postInfo: [],
       errors: [],
+      Data: [],
+      data_url: [],
+      data_nb_views: [],
       // Drop down box
       nbQR: '',
       unitModel: '',
@@ -58,6 +62,10 @@ export default {
     }
   },
   methods: {
+    modeNormal () {
+      this.mode = 2
+      this.drawChart()
+    },
     modeWeek () {
       this.mode = 0
       this.drawChart()
@@ -71,7 +79,7 @@ export default {
       var url = 'test2.json'
       var vm = this
       this.$http.get(url).then(res => {
-        console.log(res.data)
+        //console.log(res.data)
         vm.msg = res.data.DATA[1]
         // Drop down box
         this.nbQR = res.data.DATA[0].nbQRtt
@@ -130,7 +138,30 @@ export default {
       console.log('?????' + this.v1)
       // Initialize the echarts instance based on the prepared dom
       let myChart = this.$echarts.init(document.getElementById('main'))
-      if (this.mode) {
+      if (this.mode == 2) {
+        // Specify configuration items and data for the chart of month
+        let option = {
+          title: {
+            text: 'Statistics'
+          },
+          tooltip: {},
+          legend: {
+            data: ['Number of views']
+          },
+          xAxis: {
+            data: this.data_url
+          },
+          yAxis: {},
+          series: [
+            {
+              name: 'Number of views',
+              type: 'bar',
+              data: this.data_nb_views
+            }
+          ]
+        }
+        myChart.setOption(option)
+      }else if (this.mode == 1) {
         // Specify configuration items and data for the chart of month
         let option = {
           title: {
@@ -201,15 +232,36 @@ export default {
     }
   },
   mounted () {
-    this.getData()
+    //this.getData()
   },
   created: function() {
+      var extrait;
       var vm = this
-      axios.get(`https://qrmanager.rfc1149.net/url/stats`,  {withCredentials: true})
+      axios.get(`https://qrmanager.rfc1149.net/url`,  {withCredentials: true})
           .then(function (response) {
-              // vm.url = response.data.url
-              console.log(response.data)
-              })
+              vm.Data = response.data.liste
+              //console.log('URL!')
+              //console.log(response.data.liste)
+              //console.log(response.data.liste[0].url)
+              //console.log(response.data.liste[0].number_of_access)
+              //console.log('length of liste = ' + response.data.liste.length)
+
+              var i = 0
+              for (i = 0; i < response.data.liste.length; i++) {
+                vm.data_nb_views.push(response.data.liste[i].number_of_access)
+                vm.data_url.push(response.data.liste[i].url)
+                /*if(response.data.liste[i].url.length<20){
+                  vm.data_url.push(response.data.liste[i].url)
+                }else{
+                  extrait = response.data.liste[i].url.substring(0,19) + "..."
+                  vm.data_url.push(extrait)
+                }*/
+              }
+
+              console.log(vm.data_url)
+              console.log(vm.data_nb_views)
+
+          })
           .catch(function (error) {
               vm.answer = 'Error! Could not reach the API??? ' + error
               console.log(error)
