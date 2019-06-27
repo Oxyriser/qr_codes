@@ -41,7 +41,7 @@ defmodule QrManagerWeb.Router do
     pipe_through :browser
 
     get "/login", PageController, :login
-    get "/signout", PageController, :logout
+    get "/signout", SessionController, :delete
     get "/:provider", SessionController, :request
     get "/:provider/callback", SessionController, :create
   end
