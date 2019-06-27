@@ -249,13 +249,13 @@ export default {
               var i = 0
               for (i = 0; i < response.data.liste.length; i++) {
                 vm.data_nb_views.push(response.data.liste[i].number_of_access)
-                vm.data_url.push(response.data.liste[i].url)
-                /*if(response.data.liste[i].url.length<20){
+                //vm.data_url.push(response.data.liste[i].url)
+                if(response.data.liste[i].url.length<(50/response.data.liste.length)){
                   vm.data_url.push(response.data.liste[i].url)
                 }else{
-                  extrait = response.data.liste[i].url.substring(0,19) + "..."
+                  extrait = response.data.liste[i].url.substring(0,(50/response.data.liste.length-1)) + "..."
                   vm.data_url.push(extrait)
-                }*/
+                }
               }
 
               console.log(vm.data_url)
