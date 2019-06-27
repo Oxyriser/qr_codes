@@ -8,4 +8,14 @@ defmodule QrManagerWeb.PageController do
       redirect(conn, external: "https://qrmanager.rfc1149.net/auth/google?scope=email%20profile")
     end
   end
+
+  def logout(conn, _params) do
+    if conn.assigns[:user] do
+      conn
+      |> redirect(to: Routes.session_path(conn, :delete))
+    else
+      redirect(conn, external: "https://qrmanager.rfc1149.net")
+    end
+  end
+
 end

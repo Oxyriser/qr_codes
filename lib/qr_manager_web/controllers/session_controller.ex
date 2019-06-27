@@ -41,7 +41,7 @@ defmodule QrManagerWeb.SessionController do
   def delete(conn, _params) do
     conn
     |> configure_session(drop: true)
-    |> redirect(to: Routes.page_path(conn, :login))
+    redirect(conn, external: "https://qrmanager.rfc1149.net")
   end
 
 end
